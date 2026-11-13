@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lost World — Interactive EdTech Academy (Chapters 1–3)</title>
+  <!-- Google Fonts: Plus Jakarta Sans, Merriweather & Cairo for Arabic Translations -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['Merriweather', 'serif'],
+            arabic: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            royal: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              500: '#4f46e5',
+              600: '#4338ca',
+              700: '#3730a3',
+              800: '#312e81',
+              900: '#1e1b4b',
+            },
+            emeraldCustom: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.35); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.6); }
+
+    /* Smart Highlighting Palette */
+    .hl-vocab {
+      background-color: rgba(250, 204, 21, 0.28);
+      border-bottom: 2px solid #eab308;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .dark .hl-vocab {
+      background-color: rgba(234, 179, 8, 0.22);
+      color: #fef08a;
+    }
+
+    .hl-idea {
+      background-color: rgba(59, 130, 246, 0.18);
+      border-bottom: 2px solid #3b82f6;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .dark .hl-idea {
+      background-color: rgba(59, 130, 246, 0.25);
+      color: #bfdbfe;
+    }
+
+    .hl-cause {
+      background-color: rgba(16, 185, 129, 0.2);
+      border-bottom: 2px solid #10b981;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .dark .hl-cause {
+      background-color: rgba(16, 185, 129, 0.24);
+      color: #a7f3d0;
+    }
+
+    .hl-char {
+      background-color: rgba(168, 85, 247, 0.2);
+      border-bottom: 2px solid #a855f7;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .dark .hl-char {
+      background-color: rgba(168, 85, 247, 0.26);
+      color: #e9d5ff;
+    }
+
+    .hl-exam {
+      background-color: rgba(244, 63, 94, 0.18);
+      border-bottom: 2px solid #f43f5e;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .dark .hl-exam {
+      background-color: rgba(244, 63, 94, 0.25);
+      color: #fecdd3;
+    }
+
+    /* 3D Flashcard Flip */
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+
+    /* Smooth Accordion */
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease-out;
+    }
+    .accordion-content.open {
+      grid-template-rows: 1fr;
+    }
+    .accordion-inner {
+      overflow: hidden;
+    }
+
+    /* Mind Map Node Pulse */
+    .mindmap-node {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mindmap-node:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    /* Pop animation for correct answer */
+    @keyframes popCelebrate {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+    .animate-pop {
+      animation: popCelebrate 0.35s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans antialiased">
+
+  <!-- Top Mobile Header -->
+  <header class="lg:hidden sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-royal-600 to-purple-600 flex items-center justify-center text-white font-bold shadow-md">
+        LW
+      </div>
+      <div>
+        <h1 class="font-bold text-sm leading-tight">The Lost World</h1>
+        <p class="text-[11px] text-slate-500 dark:text-slate-400">EdTech Novel Academy</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleTheme()" aria-label="Toggle Dark Mode" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+        <span id="mobileThemeIcon">🌙</span>
+      </button>
+      <button onclick="toggleSidebar()" aria-label="Open Navigation" class="p-2 rounded-lg bg-royal-600 text-white font-semibold text-sm">
+        ☰ Menu
+      </button>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar Backdrop (Mobile) -->
+    <div id="sidebarBackdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden lg:hidden"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed lg:sticky top-0 left-0 z-50 h-screen w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl lg:shadow-none">
+      <div class="p-5 overflow-y-auto flex-1">
+        <!-- Brand Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-royal-600 via-indigo-600 to-purple-700 flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-indigo-500/25">
+              🦖
+            </div>
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-royal-600 dark:text-indigo-400 block">Arthur Conan Doyle</span>
+              <h1 class="font-extrabold text-lg tracking-tight leading-none">The Lost World</h1>
+            </div>
+          </div>
+          <button onclick="toggleTheme()" title="Toggle Light/Dark Mode" class="hidden lg:flex w-9 h-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-slate-700 transition text-base">
+            <span id="desktopThemeIcon">🌙</span>
+          </button>
+        </div>
+
+        <!-- Global Progress Card -->
+        <div class="bg-gradient-to-br from-royal-50 to-purple-50 dark:from-slate-800/90 dark:to-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl p-4 mb-6">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold text-slate-700 dark:text-slate-200">Overall Mastery Progress</span>
+            <span id="globalProgressText" class="text-xs font-extrabold text-royal-600 dark:text-indigo-400">0%</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-2">
+            <div id="globalProgressBar" class="h-full bg-gradient-to-r from-royal-600 to-emerald-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <p id="globalProgressSub" class="text-[11px] text-slate-500 dark:text-slate-400">0 / 90 tasks mastered across 3 chapters</p>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="space-y-1.5">
+          <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">Course Modules</p>
+
+          <button onclick="selectChapter(0)" id="nav-ch-0" class="nav-btn w-full text-left px-3.5 py-3 rounded-xl flex items-center gap-3 transition font-semibold text-sm">
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">📖</span>
+            <div class="flex-1 min-w-0">
+              <div class="truncate">Novel Introduction</div>
+              <div class="text-[11px] font-normal opacity-75 truncate">Author, Setting & Characters</div>
+            </div>
+          </button>
+
+          <button onclick="selectChapter(1)" id="nav-ch-1" class="nav-btn w-full text-left px-3.5 py-3 rounded-xl flex items-center gap-3 transition font-semibold text-sm">
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">1</span>
+            <div class="flex-1 min-w-0">
+              <div class="truncate">Chapter 1</div>
+              <div class="text-[11px] font-normal opacity-75 truncate">A Dream of Adventure</div>
+            </div>
+            <span id="badge-ch-1" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800">0%</span>
+          </button>
+
+          <button onclick="selectChapter(2)" id="nav-ch-2" class="nav-btn w-full text-left px-3.5 py-3 rounded-xl flex items-center gap-3 transition font-semibold text-sm">
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">2</span>
+            <div class="flex-1 min-w-0">
+              <div class="truncate">Chapter 2</div>
+              <div class="text-[11px] font-normal opacity-75 truncate">Professor Challenger's Secret</div>
+            </div>
+            <span id="badge-ch-2" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800">0%</span>
+          </button>
+
+          <button onclick="selectChapter(3)" id="nav-ch-3" class="nav-btn w-full text-left px-3.5 py-3 rounded-xl flex items-center gap-3 transition font-semibold text-sm">
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">3</span>
+            <div class="flex-1 min-w-0">
+              <div class="truncate">Chapter 3</div>
+              <div class="text-[11px] font-normal opacity-75 truncate">The Expedition Is Chosen</div>
+            </div>
+            <span id="badge-ch-3" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800">0%</span>
+          </button>
+        </div>
+
+        <!-- Smart Highlight Legend -->
+        <div class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-800">
+          <p class="px-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2.5">Smart Highlight Key</p>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-yellow-400 inline-block"></span><span>Key / Difficult Vocabulary</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-blue-500 inline-block"></span><span>Core Plot Ideas</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-emerald-500 inline-block"></span><span>Cause &amp; Effect</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-purple-500 inline-block"></span><span>Character Traits &amp; Motives</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-rose-500 inline-block"></span><span>High-Yield Exam Phrases</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Reset -->
+      <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/70">
+        <button onclick="resetAllProgress()" class="w-full py-2 px-3 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 transition">
+          Reset All Saved Progress
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 min-w-0 max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-6 lg:py-10">
+      <!-- Dynamic Content Container -->
+      <div id="appContent"></div>
+    </main>
+  </div>
+
+  <script>
+    // =========================================================================
+    // COURSE DATA: INTRODUCTION + CHAPTERS 1, 2, 3 (COMPLETE & UNABRIDGED)
+    // =========================================================================
+
+    const INTRO_DATA = {
+      writer: [
+        "Arthur Conan Doyle (1859–1930) was a Scottish writer and doctor who is best known for creating the famous detective Sherlock Holmes. He was born in Edinburgh, Scotland, in 1859. Before becoming a full-time writer, he studied medicine and worked as a doctor.",
+        "Doyle published his first Sherlock Holmes story, A Study in Scarlet, in 1887. Holmes became one of the most famous fictional detectives in the world because of his intelligence, careful observation, and logical reasoning. Doyle wrote many stories and novels featuring Holmes and his friend, Dr. John Watson.",
+        "Besides detective fiction, Doyle wrote historical novels, science fiction, adventure stories, and other works. He also had a strong interest in history and different scientific and social issues.",
+        "Arthur Conan Doyle died in 1930 at the age of 71. His Sherlock Holmes stories continue to be widely read and have inspired countless films, television series, and adaptations."
+      ],
+      novel: [
+        "The Lost World is an adventure novel by Arthur Conan Doyle, published in 1912. It tells the story of Professor Challenger, a bold and confident scientist who claims that prehistoric animals, including dinosaurs, still exist in a remote area of South America.",
+        "A journalist named Edward Malone joins Professor Challenger and a small group of explorers on a dangerous expedition. They travel to a mysterious plateau that is difficult to reach. When they arrive, they discover a strange world where dinosaurs and other prehistoric creatures still live.",
+        "The explorers face many dangers and unexpected challenges. They also meet a group of humans living on the plateau and become involved in a conflict between different groups.",
+        "The novel combines adventure, science, mystery, and exploration. It explores themes such as courage, teamwork, discovery, and the desire to explore the unknown."
+      ],
+      setting: "The novel begins in London, England, where Edward Malone works as a journalist. The main events take place in a remote plateau in the Amazon region of South America. The plateau is isolated and difficult to reach, and it is home to dinosaurs and other prehistoric creatures. The story is set in the early 20th century.",
+      characters: [
+        { name: "Professor George Edward Challenger", role: "Lead Scientist", traits: "A brilliant, proud, bold, and confident zoologist who leads the expedition to prove his theory that prehistoric creatures still exist on a remote South American plateau." },
+        { name: "Edward Malone", role: "Narrator & Journalist", traits: "A 23-year-old reporter for the Daily Gazette in London. Brave, curious, and eager for adventure; joins Challenger's expedition to prove himself and records the journey." },
+        { name: "Lord John Roxton", role: "Explorer & Hunter", traits: "A famous, calm, brave, and experienced sportsman and hunter who fought against slavery in South America and knows the Amazon region well." },
+        { name: "Professor Summerlee", role: "Sceptical Scientist", traits: "An elderly scientist and Challenger's rival who doubts his claims about dinosaurs at first, but joins the expedition to test the evidence personally." },
+        { name: "Zambo", role: "Loyal Helper", traits: "A strong, cheerful, and dependable African helper who stays at the base of the plateau to supply food and support." },
+        { name: "Gladys Hungerton", role: "Malone's Inspiration", traits: "The young woman Malone loves at the beginning of the novel; her belief that true courage defines a great man inspires Malone to seek adventure." },
+        { name: "The Ape-Men", role: "Antagonists on the Plateau", traits: "Primitive, aggressive human-like creatures living on the plateau who are bitter enemies of the human tribe." },
+        { name: "The Indians (Accala)", role: "Plateau Inhabitants", traits: "A human tribe living on the plateau engaged in a generational conflict with the Ape-Men." }
+      ]
+    };
+
+    const CHAPTERS_DATA = {
+      1: {
+        number: 1,
+        title: "Chapter 1: A Dream of Adventure",
+        subtitle: "Edward Malone's quest for courage, Gladys's challenge, and the risky plan to meet Professor Challenger.",
+        summaryPoints: [
+          "Edward Malone is a 23-year-old reporter for the Daily Gazette in London, full of energy and eager for a meaningful life.",
+          "He proposes marriage to Gladys Hungerton, who values their friendship but says she could only love a brave man who has faced danger and traveled into the unknown.",
+          "Gladys explains that true courage comes from a man's character, not from acting merely to impress someone else.",
+          "Inspired by her words, Malone visits his editor, Mr. McArdle, the next evening and asks for a dangerous assignment.",
+          "McArdle assigns Malone to investigate Professor George Edward Challenger, a brilliant but aggressive zoologist who returned from South America claiming unknown creatures exist.",
+          "Because Challenger hates journalists and throws them out of his house, Malone consults his friend Tarp Henry at the Savage Club.",
+          "Malone copies a complicated sentence from Challenger's latest scientific paper and writes a letter pretending to be an admiring student.",
+          "Challenger replies, criticizing Malone's poor understanding but granting an appointment on Wednesday at 11:00 AM in Kensington.",
+          "At Challenger's house, Mrs. Challenger warns Malone in the hall that her husband is 'impossible' and advises him to leave if Challenger gets angry.",
+          "Malone enters the fossil-filled study and meets the short, enormously broad professor with a huge black beard and sharp grey-blue eyes."
+        ],
+        paragraphs: [
+          {
+            en: `My name is <span class="hl-char">Edward Malone</span>, and at the time this story began I was a <span class="hl-vocab">young reporter</span> on the <span class="hl-idea">Daily Gazette in London</span>. I was <span class="hl-char">twenty-three, full of energy</span>, and certain that <span class="hl-idea">a great life was waiting for me</span>. The problem was that <span class="hl-cause">I had no idea how to begin it</span>.`,
+            ar: `اسمي إدوارد مالون، وفي الوقت الذي بدأت فيه هذه القصة كنت مراسلًا صحفيًا شابًا في صحيفة «ديلي جازيت» في لندن. كنت في الثالثة والعشرين من عمري، مفعمًا بالحيوية، وموقنًا بأن حياة عظيمة تنتظرني. وكانت المشكلة أنني لم أكن أعرف كيف أبدأها.`
+          },
+          {
+            en: `There was also <span class="hl-char">Gladys Hungerton</span>. I <span class="hl-vocab">admired</span> her more than anyone I had ever met, and one evening <span class="hl-idea">I finally asked her to marry me</span>. She did not laugh at me or become angry. Instead, she looked <span class="hl-vocab">serious</span> and told me that <span class="hl-cause">she valued our friendship</span> but <span class="hl-exam">did not love me in the way I hoped</span>.`,
+            ar: `كانت هناك أيضًا جلاديس هانجرتون. كنت معجبًا بها أكثر من أي شخص قابلته في حياتي، وفي إحدى الأمسيات طلبت منها الزواج أخيرًا. لم تضحك مني ولم تغضب. وبدلًا من ذلك، بدت جادة وأخبرتني أنها تقدّر صداقتنا لكنها لا تحبني بالطريقة التي كنت أتمناها.`
+          },
+          {
+            en: `"What kind of man could you love?" I asked. Gladys thought for a moment. "<span class="hl-exam">A man who has done something brave</span>," she said. "Someone who has <span class="hl-idea">faced danger</span>, <span class="hl-vocab">traveled into the unknown</span>, and <span class="hl-char">proved that he can act when it matters</span>."`,
+            ar: `سألتها: «أي نوع من الرجال يمكنكِ أن تحبي؟» فكرت جلاديس للحظة ثم قالت: «رجلٌ قام بعمل شجاع؛ شخصٌ واجه الخطر، وسافر إلى المجهول، وأثبت أنه يستطيع التصرف عندما يتطلب الأمر ذلك».`
+          },
+          {
+            en: `I tried to <span class="hl-vocab">joke</span>. "So, I must discover a new country before you will consider me?" "Not for me," she replied. "<span class="hl-exam">If a man is truly brave, he does not act just to impress someone else.</span> He acts because <span class="hl-char">courage is part of his character</span>."`,
+            ar: `حاولتُ أن أمزح قائلًا: «إذن، يجب أن أكتشف بلدًا جديدًا قبل أن تفكري بي؟» فأجابت: «ليس من أجلي؛ فإذا كان الرجل شجاعًا حقًا، فإنه لا يتصرف لمجرد إبهار شخص آخر، بل يتصرف لأن الشجاعة جزء من شخصيته».`
+          },
+          {
+            en: `<span class="hl-cause">Her words stayed with me.</span> I left her house feeling <span class="hl-char">disappointed, but also strangely excited</span>. <span class="hl-idea">London suddenly seemed too safe.</span> I wanted a <span class="hl-vocab">challenge</span> - something that would test me and <span class="hl-exam">give my life a clearer purpose</span>.`,
+            ar: `ظلت كلماتها عالقة في ذهني. غادرتُ منزلها وأنا أشعر بخيبة أمل، ولكن بحماس غريب في الوقت نفسه. بدت لندن فجأة آمنة أكثر من اللازم. أردتُ تحديًا — شيئًا يختبرني ويمنح حياتي هدفًا أكثر وضوحًا.`
+          },
+          {
+            en: `The next evening, I <span class="hl-vocab">went straight to</span> my <span class="hl-vocab">editor</span>, <span class="hl-char">Mr. McArdle</span>. He was an <span class="hl-char">experienced newspaper man</span> who had seen every kind of young reporter. When I asked him to send me on a <span class="hl-exam">dangerous assignment</span>, he pushed his glasses up and <span class="hl-vocab">stared at</span> me. "You want danger?" he said. "<span class="hl-idea">Most sensible people want to avoid it.</span>" "I want a real story, sir. Something difficult." He studied me for a moment, then smiled. "Perhaps I do have a job for you. Have you heard of <span class="hl-char">Professor George Edward Challenger</span>?"`,
+            ar: `في المساء التالي، توجهتُ مباشرةً إلى رئيس تحريري، السيد مكاردل. كان رجل صحافة خبيرًا رأى كل أنواع المراسلين الشباب. وعندما طلبتُ منه إرسالي في مهمة خطيرة، رفع نظارته وحدّق فيّ قائلًا: «أتريد الخطر؟ معظم العقلاء يريدون تجنبه». فقلت: «أريد قصة حقيقية يا سيدي، شيئًا صعبًا». تأملني للحظة ثم ابتسم وقال: «ربما لديّ عمل يناسبك بالفعل. هل سمعت عن البروفيسور جورج إدوارد تشالنجر؟»`
+          },
+          {
+            en: `Of course I had. Almost everyone in the newspaper world knew his name. Challenger was a <span class="hl-char">famous zoologist, brilliant but extremely difficult</span>. He had recently returned from <span class="hl-idea">South America</span> with an <span class="hl-vocab">extraordinary</span> story about <span class="hl-idea">unknown animals</span>. When scientists <span class="hl-vocab">questioned</span> him, he <span class="hl-cause">refused to give clear details</span>. When reporters tried to interview him, he <span class="hl-exam">often threw them out of his house - sometimes literally</span>.`,
+            ar: `بالطبع سمعت عنه، فكل شخص تقريبًا في عالم الصحافة يعرف اسمه. كان تشالنجر عالم حيوان شهيرًا، بارعًا لكنه صعب المراس للغاية. وكان قد عاد مؤخرًا من أمريكا الجنوبية بقصة استثنائية عن حيوانات مجهولة. وعندما استجوبه العلماء، رفض تقديم تفاصيل واضحة، وعندما حاول الصحفيون إجراء مقابلات معه، كان غالبًا ما يطردهم خارج منزله — حرفيًا في بعض الأحيان.`
+          },
+          {
+            en: `"Do you want me to interview him?" I asked. "If you can <span class="hl-vocab">get through</span> the front door," McArdle replied. "Two years ago, Challenger <span class="hl-idea">traveled alone through a little-known part of South America</span>. He came back claiming that something remarkable had happened. He had <span class="hl-exam">damaged photographs, strange sketches, and a few pieces of evidence</span>, but he <span class="hl-cause">would not reveal the exact place</span>. Most people think he is <span class="hl-vocab">either mistaken or lying</span>. Find out which."`,
+            ar: `سألتُ: «هل تريد مني أن أجري معه مقابلة؟» أجاب مكاردل: «إن استطعتَ عبور الباب الأمامي. قبل عامين، سافر تشالنجر بمفرده عبر جزء قليل الشهرة من أمريكا الجنوبية، وعاد مدعيًا أن شيئًا مذهلًا قد حدث. كانت لديه صور تالفة، ورسومات غريبة، وبضع قطع من الأدلة، لكنه رفض الكشف عن المكان الدقيق. يعتقد معظم الناس أنه إما مخطئ أو كاذب. اكتشف أيّهما الصحيح».`
+          },
+          {
+            en: `This was exactly the kind of chance I had been looking for. Yet there was one problem: <span class="hl-cause">Challenger hated journalists</span>. If I arrived <span class="hl-vocab">honestly</span> and said I worked for the Gazette, <span class="hl-exam">the interview would probably end before it began</span>.`,
+            ar: `كانت هذه بالضبط الفرصة التي كنت أبحث عنها. ومع ذلك، كانت هناك مشكلة واحدة: تشالنجر يكره الصحفيين. فلو وصلتُ بصدق وقلتُ إنني أعمل لصالح صحيفة «جازيت»، لربما انتهت المقابلة قبل أن تبدأ.`
+          },
+          {
+            en: `That night I went to the <span class="hl-idea">Savage Club</span>, where many writers and scientists met. I found my friend <span class="hl-char">Tarp Henry</span>, who worked for a <span class="hl-vocab">scientific journal</span>, and asked what he knew about Challenger. "He is clever," Henry said, "but impossible. He <span class="hl-vocab">argues with</span> everyone. At a <span class="hl-idea">scientific meeting in Vienna</span>, he almost started a <span class="hl-vocab">battle</span> over a <span class="hl-vocab">theory of evolution</span>. If you want to speak to him, <span class="hl-exam">do not mention newspapers</span>."`,
+            ar: `في تلك الليلة ذهبتُ إلى نادي «سافاج»، حيث يلتقي العديد من الكتّاب والعلماء. وجدتُ صديقي تارب هنري، الذي يعمل في مجلة علمية، وسألته عما يعرفه عن تشالنجر. فقال هنري: «إنه ذكي، لكن التعامل معه مستحيل؛ فهو يتجادل مع الجميع. وفي اجتماع علمي في فيينا، كاد يبدأ معركة بسبب نظرية التطور. إذا أردت التحدث إليه، فلا تذكر الصحف أبدًا».`
+          },
+          {
+            en: `That <span class="hl-vocab">gave me an idea</span>. I asked Henry to find <span class="hl-idea">Challenger's latest scientific paper</span>. It was full of <span class="hl-vocab">technical language</span> I <span class="hl-vocab">barely</span> understood, but I <span class="hl-cause">copied one complicated sentence</span> and used it in a letter. I <span class="hl-exam">pretended to be a young student</span> who admired Challenger's work but had a question about one of his arguments. Henry read the letter and laughed. "<span class="hl-vocab">You are taking a risk</span>, Malone. He may realize at once that you know nothing about the subject." "I only need to get inside his study," I said. "After that, I will <span class="hl-vocab">take my chance</span>."`,
+            ar: `أعطاني ذلك فكرة. طلبتُ من هنري أن يجد أحدث بحث علمي لتشالنجر. كان البحث مليئًا بلغة تقنية بالكاد فهمتها، لكنني نسختُ جملة معقدة واحدة واستخدمتها في رسالة. وتظاهرتُ بأنني طالب شاب معجب بعمل تشالنجر ولديّ سؤال حول إحدى حججه. قرأ هنري الرسالة وضحك قائلًا: «أنت تخاطر يا مالون، فقد يدرك فورًا أنك لا تعرف شيئًا عن الموضوع». فقلت: «أحتاج فقط إلى الدخول إلى غرفة مكتبه، وبعد ذلك سأغتنم فرصتي».`
+          },
+          {
+            en: `Two days later a reply arrived. The handwriting looked as <span class="hl-vocab">aggressive</span> as the man himself. Challenger wrote that <span class="hl-cause">my question showed poor understanding</span>, but he was <span class="hl-vocab">willing</span> to <span class="hl-vocab">explain the matter in person</span>. He gave me an <span class="hl-vocab">appointment</span> for <span class="hl-idea">eleven o'clock on Wednesday morning</span>.`,
+            ar: `بعد يومين وصل الرد. بدا خط اليد عدوانيًا تمامًا مثل الرجل نفسه. كتب تشالنجر أن سؤالي يُظهر فهمًا ضعيفًا، لكنه مستعد لشرح الأمر شخصيًا، وحدد لي موعدًا في الساعة الحادية عشرة من صباح يوم الأربعاء.`
+          },
+          {
+            en: `I should have been nervous. Instead, I felt as if <span class="hl-char">my real life had finally begun</span>. On Wednesday I traveled to Professor Challenger's large house in <span class="hl-idea">Kensington</span>. A quiet <span class="hl-vocab">servant</span> named <span class="hl-char">Austin</span> opened the door. Before he could take me to the study, a <span class="hl-char">small, lively woman</span> stopped me in the hall. "You have come to see my husband?" she asked. "Yes, <span class="hl-char">Mrs. Challenger</span>." She <span class="hl-vocab">lowered her voice</span>. "Then I should warn you. George is a <span class="hl-exam">perfectly impossible person</span>. If he becomes angry, do not argue too long. <span class="hl-exam">Leave the room while you still can</span>."`,
+            ar: `كان ينبغي أن أكون متوترًا، ولكن بدلًا من ذلك شعرتُ وكأن حياتي الحقيقية قد بدأت أخيرًا. يوم الأربعاء سافرتُ إلى منزل البروفيسور تشالنجر الكبير في كينسينجتون. فتح الباب خادم هادئ يُدعى أوستن. وقبل أن يتمكن من اصطحابي إلى غرفة المكتب، أوقفتني امرأة صغيرة مفعمة بالحيوية في الردهة. سألت: «هل أتيت لرؤية زوجي؟» أجبت: «نعم، يا سيدة تشالنجر». فخفضت صوتها وقالت: «إذن يجب أن أحذرك؛ فجورج شخص مستحيل التعامل تمامًا. إذا غضب، فلا تجادله طويلًا، وغادر الغرفة بينما لا تزال قادرًا على ذلك».`
+          },
+          {
+            en: `I smiled, but her <span class="hl-vocab">expression</span> told me she was serious. A deep voice suddenly <span class="hl-vocab">roared</span> from behind a closed door. Austin opened it, and I entered. Professor Challenger sat behind a wide desk covered with <span class="hl-idea">books, maps, fossils, and papers</span>. He was <span class="hl-char">shorter than I expected, but enormously broad</span>. His <span class="hl-char">black beard spread across his chest</span>, and his <span class="hl-char">sharp grey-blue eyes seemed to measure every weakness in me</span>. "Well?" he demanded. "You are the young man who has difficulty understanding <span class="hl-vocab">plain</span> science?" I had entered looking for adventure. <span class="hl-exam">I had found it sooner than I expected.</span>`,
+            ar: `ابتسمتُ، لكن تعبير وجهها أخبرني أنها جادة. وفجأة زأر صوت عميق من خلف باب مغلق. فتح أوستن الباب، فدخلتُ. كان البروفيسور تشالنجر جالسًا خلف مكتب عريض مغطى بالكتب والخرائط والحفريات والأوراق. كان أقصر مما توقعت، لكنه عريض البنية بشكل هائل، ولحيته السوداء تمتد على صدره، وعيناه الحادتان الرماديتان المزرقتان تبدوان وكأنهما تقيسان كل نقطة ضعف فيّ. سأل بلهجة آمرة: «حسنًا؟ أنت الشاب الذي يجد صعوبة في فهم العلم الواضح؟» كنت قد دخلتُ أبحث عن المغامرة، فوجدتها في وقت أقرب مما كنت أتوقع.`
+          }
+        ],
+        vocabulary: [
+          { word: "zoologist (n)", en: "A scientist who studies animals and their behavior.", ar: "عالم حيوانات" },
+          { word: "assignment (n)", en: "A specific task or job given to someone, especially a journalist.", ar: "مهمة / تكليف صحفي" },
+          { word: "literally (adv)", en: "In a completely actual or exact sense, without exaggeration.", ar: "حرفيًا / بالمعنى الحرفي" },
+          { word: "little-known (adj)", en: "Not familiar to many people; obscure or rarely visited.", ar: "قليل الشهرة / غير معروف" },
+          { word: "sketches (n)", en: "Quick, rough drawings made without many details.", ar: "رسومات تخطيطية / مخططات" },
+          { word: "reveal (v)", en: "To make previously secret or unknown information known.", ar: "يكشف / يُفصح عن" },
+          { word: "theory of evolution (n)", en: "The scientific explanation of how living species develop and change over time.", ar: "نظرية التطور" },
+          { word: "technical language (n)", en: "Specialized words and terms used in a particular scientific field.", ar: "لغة تقنية / مصطلحات متخصصة" },
+          { word: "barely (adv)", en: "Only just; almost not at all.", ar: "بالكاد" },
+          { word: "pretend (v)", en: "To act as if something is true when it is not, in order to deceive.", ar: "يتظاهر" },
+          { word: "take a risk (expr)", en: "To do something that involves danger or the chance of failure.", ar: "يخاطر" },
+          { word: "aggressive (adj)", en: "Forceful, hostile, and ready to argue or attack.", ar: "عدواني / هجومي" },
+          { word: "in person (expr)", en: "Physically present face-to-face rather than by letter or phone.", ar: "شخصيًا / وجهًا لوجه" },
+          { word: "fossils (n)", en: "The preserved remains or traces of ancient prehistoric plants or animals.", ar: "حفريات / متحجرات" },
+          { word: "enormously broad (adj)", en: "Extremely wide and heavily built in shoulders and chest.", ar: "عريض البنية بشكل هائل" },
+          { word: "plain (adj)", en: "Clear, simple, and easy to understand.", ar: "واضح / جلي / بسيط" }
+        ],
+        mindmap: {
+          center: "Chapter 1: A Dream of Adventure",
+          branches: [
+            { title: "Gladys's Challenge", color: "purple", items: ["Rejects Malone's proposal", "Wants a brave man who faces danger", "True courage is part of character, not to impress"] },
+            { title: "McArdle's Assignment", color: "blue", items: ["Malone seeks a dangerous story", "Assigned to investigate Prof. Challenger", "Verify if South America claims are true or false"] },
+            { title: "The Deception Plan", color: "amber", items: ["Challenger hates & throws out reporters", "Tarp Henry supplies scientific paper", "Malone poses as an admiring student"] },
+            { title: "First Confrontation", color: "rose", items: ["Wednesday 11 AM in Kensington", "Mrs. Challenger warns Malone to flee anger", "Enters fossil-filled study; meets fierce professor"] }
+          ]
+        },
+        flashcards: [
+          { q: "Why does Gladys Hungerton refuse Edward Malone's marriage proposal?", a: "She values his friendship, but she could only love a brave man who has faced danger and traveled into the unknown." },
+          { q: "According to Gladys, what defines true courage?", a: "A truly brave man does not act just to impress someone else; he acts because courage is part of his character." },
+          { q: "What assignment does Mr. McArdle give Edward Malone?", a: "To investigate Professor Challenger and find out whether his extraordinary claims about unknown animals in South America are mistaken or lies." },
+          { q: "Why can't Malone interview Challenger openly as a reporter?", a: "Because Challenger fiercely hates journalists, refuses to answer their questions, and literally throws them out of his house." },
+          { q: "How does Tarp Henry help Malone get inside Challenger's study?", a: "Henry warns Malone not to mention newspapers and gives him Challenger's latest scientific paper, from which Malone copies a complex sentence for his fake student letter." },
+          { q: "What warning does Mrs. Challenger give Malone in the hall?", a: "She warns him that her husband is 'impossible' and advises Malone not to argue too long if George gets angry, but to leave the room while he still can." }
+        ],
+        mcqs: [
+          {
+            q: "What is Gladys Hungerton's main condition for loving a man?",
+            options: [
+              "He must have faced danger, traveled into the unknown, and proved his courage.",
+              "He must become the chief editor of a famous London newspaper.",
+              "He must perform daring acts specifically to impress her.",
+              "He must be a wealthy scientist who discovers new lands."
+            ],
+            correct: 0,
+            explanation: "Gladys states she could love a man who has faced danger, traveled into the unknown, and acts bravely because courage is part of his character—not to impress someone."
+          },
+          {
+            q: "How do Gladys's words immediately affect Edward Malone?",
+            options: [
+              "He feels disappointed yet strangely excited, realizing London feels too safe.",
+              "He gives up on journalism and decides to study medicine instead.",
+              "He becomes angry with Gladys and never speaks to her again.",
+              "He decides to travel immediately to Vienna for a scientific conference."
+            ],
+            correct: 0,
+            explanation: "Her words stay with him; he feels disappointed by her refusal but strangely excited, feeling London is too safe and needing a real challenge."
+          },
+          {
+            q: "Why is Mr. McArdle surprised when Malone asks for a dangerous assignment?",
+            options: [
+              "Because most sensible people try to avoid danger rather than seek it.",
+              "Because Malone has never written a single article for the Daily Gazette.",
+              "Because Professor Challenger had already invited Malone to his house.",
+              "Because there were no interesting stories anywhere in London."
+            ],
+            correct: 0,
+            explanation: "McArdle pushes up his glasses in surprise and remarks that 'most sensible people want to avoid' danger."
+          },
+          {
+            q: "What evidence did Professor Challenger bring back from his solo journey to South America?",
+            options: [
+              "Damaged photographs, strange sketches, and a few pieces of evidence.",
+              "A living dinosaur kept inside a cage in his Kensington garden.",
+              "A detailed map showing the exact route to the plateau.",
+              "A signed report approved by all scientists in Vienna."
+            ],
+            correct: 0,
+            explanation: "McArdle tells Malone that Challenger returned with damaged photographs, strange sketches, and a few pieces of evidence, but refused to reveal the exact location."
+          },
+          {
+            q: "Why do most scientists and reporters doubt Challenger's South American claims?",
+            options: [
+              "He refuses to give clear details or reveal the exact location of his discovery.",
+              "He admitted in a newspaper interview that he invented the story.",
+              "He never actually traveled outside England.",
+              "His friend Tarp Henry proved the sketches were stolen."
+            ],
+            correct: 0,
+            explanation: "Because Challenger refused to share clear details or reveal the exact place, most people thought he was either mistaken or lying."
+          },
+          {
+            q: "What crucial advice does Tarp Henry give Malone at the Savage Club?",
+            options: [
+              "Do not mention newspapers if you want to speak to Challenger.",
+              "Offer Challenger money from the Daily Gazette for an exclusive interview.",
+              "Challenge Challenger to a debate about the theory of evolution.",
+              "Ask Austin, the servant, to steal Challenger's sketches."
+            ],
+            correct: 0,
+            explanation: "Tarp Henry warns Malone that Challenger argues with everyone and hates the press, advising him: 'If you want to speak to him, do not mention newspapers.'"
+          },
+          {
+            q: "How does Malone manage to get an appointment with Professor Challenger?",
+            options: [
+              "He copies a technical sentence from Challenger's paper and pretends to be an admiring student.",
+              "He asks Mr. McArdle to write an official press request to Kensington.",
+              "He meets Mrs. Challenger at the Savage Club and asks for her help.",
+              "He waits outside Challenger's house until the professor invites him in."
+            ],
+            correct: 0,
+            explanation: "Malone uses Tarp Henry's copy of Challenger's paper, copies a complicated sentence, and pretends to be a young student asking a question about his work."
+          },
+          {
+            q: "What does Challenger say in his reply letter to Malone?",
+            options: [
+              "Malone's question shows poor understanding, but he is willing to explain it in person.",
+              "Malone is the most brilliant science student in London.",
+              "He will reveal the exact map of South America on Wednesday morning.",
+              "He refuses to meet anyone who has not visited Vienna."
+            ],
+            correct: 0,
+            explanation: "Challenger's aggressive handwriting states that the question shows poor understanding, yet he agrees to explain the matter in person at 11 AM Wednesday."
+          },
+          {
+            q: "What warning does Mrs. Challenger give Malone in the hallway?",
+            options: [
+              "Do not argue too long if George gets angry; leave the room while you still can.",
+              "Do not touch any of the fossils on his desk or he will call the police.",
+              "Tell him immediately that you work for the Daily Gazette.",
+              "Speak loudly because Professor Challenger cannot hear well."
+            ],
+            correct: 0,
+            explanation: "Mrs. Challenger lowers her voice and warns Malone that George is 'a perfectly impossible person' and advises leaving the room if he gets angry."
+          },
+          {
+            q: "What does the ending line 'I had entered looking for adventure. I had found it sooner than I expected' suggest?",
+            options: [
+              "Malone's meeting with the intimidating professor will immediately be intense and perilous.",
+              "Malone had already traveled to South America by the end of Chapter 1.",
+              "Challenger peacefully agreed to publish his story in the Daily Gazette.",
+              "Malone realized he had entered the wrong house in Kensington."
+            ],
+            correct: 0,
+            explanation: "Confronted by Challenger's roaring voice, huge build, and sharp eyes questioning his science knowledge, Malone realizes the danger and adventure have already begun inside the study."
+          }
+        ],
+        essays: [
+          {
+            q: "Explain how Gladys's idea of courage changes Malone's plans for his future.",
+            ar: "اشرح كيف غيّرت فكرة جلاديس عن الشجاعة خطط مالون لمستقبله.",
+            a: "Gladys says she can only love a brave man who has faced danger. Feeling his safe life in London is not enough, Malone decides to seek a dangerous challenge."
+          },
+          {
+            q: "Describe Malone's personality as shown through his conversation with Gladys and his visit to McArdle.",
+            ar: "صف شخصية مالون كما تظهر من خلال محادثته مع جلاديس وزيارته لمكاردل.",
+            a: "Malone is hopeful, energetic, bold, and impulsive. Instead of giving up after Gladys's rejection, he immediately asks his editor for a dangerous assignment."
+          },
+          {
+            q: "Why does Malone ask Mr. McArdle to give him a dangerous assignment?",
+            ar: "لماذا يطلب مالون من السيد مكاردل أن يكلفه بمهمة خطيرة؟",
+            a: "Inspired by Gladys, he wants to prove his courage, test himself, and give his life a clearer purpose."
+          },
+          {
+            q: "What does Mr. McArdle's reaction to Malone's request reveal about Malone's attitude toward danger?",
+            ar: "ماذا يكشف رد فعل السيد مكاردل على طلب مالون عن موقف مالون تجاه الخطر؟",
+            a: "McArdle is surprised because 'most sensible people want to avoid' danger, showing that Malone is unusually bold and eager for risk."
+          },
+          {
+            q: "Why does Professor Challenger have a bad reputation among scientists and journalists?",
+            ar: "لماذا يتمتع البروفيسور تشالنجر بسمعة سيئة بين العلماء والصحفيين؟",
+            a: "Although brilliant, he is aggressive, argues with everyone, refuses to give clear proof of his claims, and literally throws journalists out of his house."
+          },
+          {
+            q: "Why do most people think Challenger is either mistaken or lying about South America?",
+            ar: "لماذا يعتقد معظم الناس أن تشالنجر إما مخطئ أو كاذب بشأن أمريكا الجنوبية؟",
+            a: "Because he returned with only damaged photos, strange sketches, and a few pieces of evidence while refusing to reveal the exact location."
+          },
+          {
+            q: "Analyze the role Tarp Henry plays in helping Malone gain access to Professor Challenger.",
+            ar: "حلل الدور الذي يلعبه تارب هنري في مساعدة مالون على الوصول إلى البروفيسور تشالنجر.",
+            a: "Henry warns Malone about Challenger's violent temper, advises him not to mention newspapers, and lends him Challenger's scientific paper for his trick letter."
+          },
+          {
+            q: "Why does Tarp Henry laugh when Malone shows him his letter to Challenger?",
+            ar: "لماذا يضحك تارب هنري عندما يريه مالون رسالته إلى تشالنجر؟",
+            a: "He laughs because the plan is risky; Malone knows almost nothing about science, and Challenger might immediately detect the trick."
+          },
+          {
+            q: "Explain how Malone uses Challenger's scientific paper to make his false identity believable.",
+            ar: "اشرح كيف يستخدم مالون البحث العلمي لتشالنجر ليجعل هويته المزيفة مقنعة.",
+            a: "He copies a complicated technical sentence from Challenger's latest paper and asks a question about it, pretending to be an admiring student."
+          },
+          {
+            q: "How does Challenger respond to Malone's letter, and what does this reveal about him?",
+            ar: "كيف يرد تشالنجر على رسالة مالون، وماذا يكشف هذا عنه؟",
+            a: "He writes that Malone shows poor understanding but agrees to explain it in person. This shows he is arrogant yet passionate about teaching his scientific ideas."
+          },
+          {
+            q: "Why does Malone feel excited rather than nervous before visiting Challenger?",
+            ar: "لماذا يشعر مالون بالحماس بدلًا من التوتر قبل زيارة تشالنجر؟",
+            a: "Because he finally feels his real adventure has begun and he has a chance to prove himself."
+          },
+          {
+            q: "What does Mrs. Challenger's warning in the hallway suggest about her relationship with her husband?",
+            ar: "بماذا يوحي تحذير السيدة تشالنجر في الردهة عن علاقتها بزوجها؟",
+            a: "She is kind and used to her husband's explosive temper, trying to protect visitors before he loses control."
+          },
+          {
+            q: "How do Mrs. Challenger's warning and Challenger's first appearance build suspense at the end of Chapter 1?",
+            ar: "كيف يبني تحذير السيدة تشالنجر وظهور تشالنجر الأول التشويق في نهاية الفصل الأول؟",
+            a: "Her warning to leave 'while you still can,' followed by his roaring voice and intimidating physical presence, creates strong tension."
+          },
+          {
+            q: "Analyze how the setting of Challenger's study reflects his character.",
+            ar: "حلل كيف يعكس تصميم مكتب تشالنجر شخصيته.",
+            a: "His wide desk cluttered with books, maps, fossils, and papers reflects a serious, obsessive, and intense scientist."
+          },
+          {
+            q: "Evaluate Malone's decision to use deception to get an interview with Challenger. Was it justified?",
+            ar: "قيّم قرار مالون باستخدام الخداع للحصول على مقابلة مع تشالنجر. هل كان مبررًا؟",
+            a: "It was understandable because Challenger threw out honest reporters, though lying carried the serious risk of angering him further."
+          },
+          {
+            q: "Evaluate Malone's desire for adventure at this stage. Does it show maturity or impulsiveness?",
+            ar: "قيّم رغبة مالون في المغامرة في هذه المرحلة. هل تُظهر نضجًا أم اندفاعًا؟",
+            a: "Both: he shows maturity by turning rejection into positive action, but impulsiveness by rushing into danger mainly to prove himself."
+          },
+          {
+            q: "What does Gladys mean by saying a brave man acts 'because courage is part of his character'?",
+            ar: "ماذا تقصد جلاديس بقولها إن الرجل الشجاع يتصرف «لأن الشجاعة جزء من شخصيته»؟",
+            a: "She means true bravery is an inner moral quality, not a performance done to win praise or love."
+          },
+          {
+            q: "Why is Challenger's refusal to reveal the exact location in South America a central problem in Chapter 1?",
+            ar: "لماذا يُعد رفض تشالنجر الكشف عن الموقع الدقيق في أمريكا الجنوبية مشكلة محورية في الفصل الأول؟",
+            a: "Without the location, no scientist can verify his evidence, causing everyone to suspect him of fraud and motivating McArdle's assignment."
+          },
+          {
+            q: "How does Malone demonstrate problem-solving skills in Chapter 1?",
+            ar: "كيف يُظهر مالون مهارات جيدة في حل المشكلات في الفصل الأول؟",
+            a: "When direct journalism is blocked, he consults Tarp Henry, studies Challenger's paper, and designs a clever disguise as a student to gain entry."
+          },
+          {
+            q: "Evaluate the ending line: 'I had entered looking for adventure. I had found it sooner than I expected.' What does it foreshadow?",
+            ar: "قيّم جملة النهاية: «دخلت أبحث عن المغامرة، فوجدتها في وقت أقرب مما توقعت». إلامَ تُمهّد؟",
+            a: "It foreshadows immediate conflict and physical confrontation inside Challenger's study before any journey even begins."
+          }
+        ]
+      },
+      2: {
+        number: 2,
+        title: "Chapter 2: Professor Challenger's Secret",
+        subtitle: "The exposure of Malone's trick, a fierce fight, earned respect, and the astonishing evidence of a prehistoric world.",
+        summaryPoints: [
+          "Challenger questions Malone on the scientific article and quickly exposes that Malone knows nothing about the subject.",
+          "Malone admits he is a reporter for the Daily Gazette; Challenger explodes with rage and attacks him.",
+          "They wrestle out into the hallway and roll through the open front door onto the outside steps.",
+          "A policeman arrives, noticing Malone's swelling eye and Challenger's torn coat, but Malone refuses to press charges, admitting it was partly his fault.",
+          "Impressed by Malone's honesty and courage, Challenger invites him back into the study on the condition that he publishes nothing without permission.",
+          "Challenger reveals the worn sketchbook of Maple White, a dying American explorer he found in a remote Amazon village two years earlier.",
+          "The sketchbook shows high red cliffs, a separate rock tower with a tree on top, and a massive animal matching a prehistoric stegosaurus.",
+          "Challenger explains he followed White's route, found the red cliffs, and took photographs—most of which were ruined in a river accident.",
+          "Challenger shows Malone a damaged photo of the rock tower with a dark winged creature, plus an actual curved wing bone with dried membrane from a pterodactyl.",
+          "Challenger explains his isolation theory: the high cliffs cut off the plateau for millions of years, allowing prehistoric species to survive.",
+          "Challenger invites Malone to attend a public lecture at the Zoological Institute the next evening, leaving Malone beginning to believe the story."
+        ],
+        paragraphs: [
+          {
+            en: `Professor Challenger began by <span class="hl-vocab">asking me questions</span> about the <span class="hl-idea">scientific article</span> I had mentioned in my letter. At first I tried to answer <span class="hl-vocab">confidently</span>, but the questions became more <span class="hl-vocab">technical</span> every minute. "And what do you think of the <span class="hl-vocab">recent evidence</span>?" he asked. "Very interesting," I said carefully. "Which evidence?" <span class="hl-cause">I hesitated.</span> His eyes narrowed. "<span class="hl-exam">You know nothing about this subject.</span>"`,
+            ar: `بدأ البروفيسور تشالنجر بطرح أسئلة عليّ حول المقال العلمي الذي ذكرته في رسالتي. في البداية حاولتُ الإجابة بثقة، لكن الأسئلة أصبحت أكثر تقنية في كل دقيقة. سألني: «وما رأيك في الأدلة الحديثة؟» فقلت بحذر: «مثيرة للاهتمام للغاية». فسأل: «أيّ أدلة؟» ترددتُ، فضاقت عيناه وقال: «أنت لا تعرف شيئًا عن هذا الموضوع».`
+          },
+          {
+            en: `<span class="hl-vocab">There was no point pretending</span> any longer. "Very little," I admitted. "Then why are you here?" I <span class="hl-vocab">took a breath</span>. "<span class="hl-exam">I am a reporter for the Daily Gazette.</span>" For one silent second, nothing happened. Then Challenger <span class="hl-char">rose from his chair like a storm</span>. "<span class="hl-cause">A journalist! In my house!</span>"`,
+            ar: `لم يعد هناك جدوى من التظاهر أكثر من ذلك. اعترفتُ قائلًا: «القليل جدًا». فسأل: «إذن لماذا أنت هنا؟» أخذتُ نفسًا وقلت: «أنا مراسل لصحيفة ديلي جازيت». لثانية صامتة واحدة لم يحدث شيء، ثم نهض تشالنجر من كرسيه كالعاصفة صارخًا: «صحفي! في منزلي!»`
+          },
+          {
+            en: `I moved towards the door. "I came because <span class="hl-vocab">the public</span> wants to understand what happened in South America." "The public!" he roared. "<span class="hl-char">You mean people who laugh before they listen.</span> Out!" He came towards me. I told him <span class="hl-vocab">firmly</span> not to touch me. He ignored the warning. A moment later we were <span class="hl-idea">struggling in the hallway, crashing into a chair and rolling through the open front door</span>. We landed together on the steps outside.`,
+            ar: `تحركتُ نحو الباب وقلت: «أتيتُ لأن الجمهور يريد أن يفهم ما حدث في أمريكا الجنوبية». فزأر قائلًا: «الجمهور! تقصد الناس الذين يضحكون قبل أن يستمعوا. اخرج!» وتقدم نحوي. أخبرته بحزم ألا يلمسني، لكنه تجاهل التحذير. وبعد لحظة كنا نتصارع في الردهة، ونرتطم بكرسي ونتدحرج عبر الباب الأمامي المفتوح، لنسقط معًا على الدرجات في الخارج.`
+          },
+          {
+            en: `A policeman hurried over. Several neighbors stopped to watch. "What happened?" the policeman asked. My eye was beginning to <span class="hl-vocab">swell</span>, and Challenger's coat was <span class="hl-vocab">torn</span>. I could easily have made a complaint. Instead, I remembered that <span class="hl-cause">I had entered his house under a false name and had deliberately tricked him</span>. "<span class="hl-exam">It was partly my fault</span>," I said. "<span class="hl-exam">I will not press charges.</span>" The policeman looked surprised, but closed his notebook. Challenger stared at me. <span class="hl-cause">The anger in his face changed into something almost like respect.</span> "Come back inside," he said. I followed him, wondering whether I was <span class="hl-char">brave or simply foolish</span>.`,
+            ar: `أسرع شرطي نحونا، وتوقف عدة جيران للمشاهدة. سأل الشرطي: «ماذا حدث؟» كانت عيني قد بدأت تتورم، ومعطف تشالنجر قد تمزق. كان بإمكاني بسهولة تقديم شكوى، لكنني تذكرتُ أنني دخلتُ منزله باسم مستعار وخدعته عمدًا. فقلت: «كان الخطأ خطئي جزئيًا، ولن أرفع دعوى قضائية». بدا الشرطي مندهشًا لكنه أغلق دفتره. حدّق تشالنجر فيّ، وتحوّل الغضب في وجهه إلى شيء يشبه الاحترام تقريبًا، وقال: «عُد إلى الداخل». تبعته وأنا أتساءل إن كنتُ شجاعًا أم مجرد أحمق.`
+          },
+          {
+            en: `Back in the study, Challenger closed the door and became suddenly serious. "<span class="hl-char">You behaved better than I would expect from a reporter</span>," he said. "Perhaps I will show you something. But <span class="hl-exam">you must promise not to publish it without my permission</span>." I <span class="hl-vocab">gave him my word</span>. He opened a worn <span class="hl-vocab">sketchbook</span>. "Two years ago I traveled through the Amazon region to study animal life. In a remote village I found a <span class="hl-vocab">dying</span> American named <span class="hl-char">Maple White</span>. He had reached the village alone after terrible <span class="hl-vocab">hardship</span>. He died before I could question him."`,
+            ar: `وبالعودة إلى غرفة المكتب، أغلق تشالنجر الباب وأصبح جادًا فجأة. قال: «لقد تصرفتَ بشكل أفضل مما كنت أتوقع من صحفي. ربما أريك شيئًا، ولكن يجب أن تعدني بألا تنشره دون إذني». أعطيته كلمتي، ففتح دفتر رسم باليًا وقال: «قبل عامين سافرتُ عبر منطقة الأمازون لدراسة الحياة الحيوانية، وفي قرية نائية وجدتُ أمريكيًا محتضرًا يُدعى مابل وايت. كان قد وصل إلى القرية بمفرده بعد مشقة رهيبة، وتوفي قبل أن أتمكن من استجوابه».`
+          },
+          {
+            en: `Among White's <span class="hl-vocab">belongings</span>, Challenger had found the sketchbook. Most of the early pages showed ordinary river scenes, plants, people, and animals. Then the drawings changed. One picture showed <span class="hl-idea">a line of high red cliffs rising above thick forest</span>. The cliffs seemed to form an <span class="hl-vocab">enormous natural wall</span>. Another showed a <span class="hl-idea">separate rock tower standing near them</span>. On top was a tree. "A strange <span class="hl-vocab">landscape</span>," I said, "but hardly impossible." "Continue."`,
+            ar: `بين ممتلكات وايت، عثر تشالنجر على دفتر الرسم. أظهرت معظم الصفحات الأولى مشاهد نهرية عادية ونباتات وناسًا وحيوانات، ثم تغيرت الرسومات. أظهرت إحدى الصور صفًا من المنحدرات الحمراء العالية التي ترتفع فوق غابة كثيفة، وبدت المنحدرات وكأنها تشكل جدارًا طبيعيًا هائلًا. وأظهرت صورة أخرى برجًا صخريًا منفصلًا يقف بالقرب منها، وعلى قمته شجرة. قلت: «منظر طبيعي غريب، لكنه ليس مستحيلًا». فقال: «تابع».`
+          },
+          {
+            en: `The next drawing stopped me. It showed a <span class="hl-idea">huge animal with a heavy body, long tail, and plates rising along its back</span>. "What is that?" "That," said Challenger, "is the question. Maple White drew what he saw." He opened a <span class="hl-vocab">reference book</span> and showed me an <span class="hl-vocab">illustration</span> of a <span class="hl-exam">prehistoric stegosaurus</span>. The similarity was remarkable. "<span class="hl-char">A man can draw anything</span>," I said. "Of course. Which is why I went to find the place myself."`,
+            ar: `أوقفتني الرسمة التالية؛ فقد أظهرت حيوانًا ضخمًا ذا جسم ثقيل وذيل طويل وصفائح ترتفع على طول ظهره. سألت: «ما هذا؟» فقال تشالنجر: «هذا هو السؤال. لقد رسم مابل وايت ما رآه». فتح كتابًا مرجعيًا وأراني رسمًا توضيحيًا لديناصور ستيجوصور من عصور ما قبل التاريخ، وكان التشابه مذهلًا. قلت: «يمكن للإنسان أن يرسم أي شيء». فأجاب: «بالطبع، ولهذا السبب ذهبتُ للعثور على المكان بنفسي».`
+          },
+          {
+            en: `Challenger explained that he <span class="hl-idea">followed White's route using clues in the sketchbook</span>. After weeks of travel, he found the red cliffs. He could not climb onto the high <span class="hl-vocab">plateau</span>, but he saw extraordinary <span class="hl-vocab">creatures</span> there. He took photographs, though <span class="hl-cause">most were damaged later in a river accident</span>. He showed me one photograph. The <span class="hl-vocab">image</span> was unclear, but I could see the cliffs and the isolated rock tower. On the tree at the top appeared a <span class="hl-idea">large dark shape</span>. "A bird?" I suggested. Challenger <span class="hl-vocab">shook his head</span>. "Look more closely."`,
+            ar: `أوضح تشالنجر أنه تتبع مسار وايت مستخدمًا الأدلة الموجودة في دفتر الرسم. وبعد أسابيع من السفر، وجد المنحدرات الحمراء. لم يستطع تسلق الهضبة المرتفعة، لكنه رأى مخلوقات استثنائية هناك. التقط صورًا فوتوغرافية، رغم أن معظمها تلف لاحقًا في حادث نهري. أراني صورة واحدة؛ كانت غير واضحة، لكنني استطعتُ رؤية المنحدرات والبرج الصخري المنعزل، وعلى الشجرة في القمة ظهر شكل داكن كبير. اقترحتُ: «طائر؟» هز تشالنجر رأسه رافضًا وقال: «انظر عن كثب أكثر».`
+          },
+          {
+            en: `He handed me a <span class="hl-vocab">magnifying glass</span>. The creature did have wings, but its <span class="hl-vocab">outline</span> was unlike any bird I knew. Then Challenger opened a <span class="hl-vocab">drawer</span> and removed a <span class="hl-exam">long curved bone with a piece of dried membrane attached</span>. "This was part of the creature's wing," he said. "I shot it, but most of the body was lost in the river accident." At first I thought it might come from a giant bat. Challenger pointed out the <span class="hl-vocab">structure</span> of the bone and compared it with a <span class="hl-vocab">diagram</span> in a zoology book. Slowly I understood what he was saying. "<span class="hl-exam">A pterodactyl?</span>" I whispered. "Exactly. A <span class="hl-idea">flying reptile from a prehistoric age</span>."`,
+            ar: `ناولني عدسة مكبرة. كان للمخلوق أجنحة بالفعل، لكن مخطط شكله لم يكن يشبه أي طائر أعرفه. ثم فتح تشالنجر درجًا وأخرج عظمة طويلة منحنية ملتصقة بها قطعة من غشاء جاف. قال: «كان هذا جزءًا من جناح المخلوق. لقد أطلقتُ عليه النار، لكن معظم الجسد فُقد في حادث النهر». في البداية ظننتُ أنه قد يكون لخفاش عملاق، فأشار تشالنجر إلى بنية العظمة وقارنها برسم تخطيطي في كتاب لعلم الحيوان. وببطء فهمتُ ما كان يقوله، فهمستُ: «تيروداكتيل؟» فقال: «بالضبط. زاحف طائر من عصر ما قبل التاريخ».`
+          },
+          {
+            en: `I looked again at Maple White's drawing, the damaged photograph, and the piece of wing. <span class="hl-exam">One item alone might have been explained away. Together they were much harder to dismiss.</span> "You really believe prehistoric animals are still alive on that plateau?" "I do not believe," Challenger said proudly. "I know." He explained his <span class="hl-vocab">theory</span>. The plateau had been <span class="hl-cause">cut off from the surrounding world for an extremely long time</span>. Its high cliffs formed a <span class="hl-vocab">natural barrier</span>. Plants and animals that disappeared elsewhere might have <span class="hl-vocab">survived there in isolation</span>.`,
+            ar: `نظرتُ مرة أخرى إلى رسمة مابل وايت، والصورة التالفة، وقطعة الجناح. أي عنصر بمفرده كان من الممكن تبريره واستبعاده، لكنها مجتمعة كانت أصعب بكثير من أن تُرفض. سألتُ: «هل تؤمن حقًا أن حيوانات ما قبل التاريخ لا تزال حية على تلك الهضبة؟» فقال تشالنجر بفخر: «أنا لا أؤمن، بل أعلم». وشرح نظريته: لقد كانت الهضبة معزولة عن العالم المحيط لفترة طويلة للغاية، وشكلت منحدراتها العالية حاجزًا طبيعيًا، مما سمح للنباتات والحيوانات التي اختفت في أماكن أخرى بالبقاء على قيد الحياة هناك في عزلة.`
+          },
+          {
+            en: `"Then why not return with other scientists?" I asked. <span class="hl-vocab">His expression darkened.</span> He had tried to speak publicly after returning to London, but <span class="hl-cause">people had laughed, accused him of creating false photographs, and demanded exact directions</span>. Insulted, he had refused to say more. "<span class="hl-exam">Yet truth does not become false because fools refuse to accept it</span>," he said. For the first time, I saw more than the rude, <span class="hl-vocab">explosive</span> man described by the newspapers. Challenger was proud and difficult, but he was also completely certain of what he had seen. <span class="hl-char">I believed that he believed his story. More than that, I was beginning to believe it too.</span>`,
+            ar: `سألتُ: «إذن لماذا لا تعود مع علماء آخرين؟» فتغيرت ملامحه إلى الكآبة. لقد حاول التحدث علنًا بعد عودته إلى لندن، لكن الناس ضحكوا، واتهموه بتزوير الصور، وطالبوا بالاتجاهات الدقيقة. ولشعوره بالإهانة، رفض قول المزيد. قال: «ومع ذلك، فإن الحقيقة لا تصبح زيفًا لأن الحمقى يرفضون قبولها». وللمرة الأولى، رأيتُ فيه أكثر من مجرد الرجل الفظ والمنفجر الذي وصفته الصحف. كان تشالنجر فخورًا وصعب المراس، لكنه كان أيضًا على يقين تام مما رآه. صدّقتُ أنه يصدق قصته، بل أكثر من ذلك، بدأتُ أصدقها أنا أيضًا.`
+          },
+          {
+            en: `Before I left, he told me about a <span class="hl-idea">public lecture at the Zoological Institute</span> the following evening. A well-known speaker would discuss the history of life on Earth. Challenger expected his South American claims to be mentioned. "Attend if you wish," he said. "You may find the evening educational." As I <span class="hl-vocab">stepped into</span> the London street, the ordinary traffic seemed suddenly unreal. Somewhere beyond the Atlantic, perhaps, there was a high red wall of rock where creatures from millions of years ago still moved through the forest. <span class="hl-exam">I had wanted a great adventure. Now I knew where it might begin.</span>`,
+            ar: `وقبل أن أغادر، أخبرني عن محاضرة عامة في معهد علم الحيوان في المساء التالي، حيث سيناقش متحدث معروف تاريخ الحياة على الأرض، وتوقع تشالنجر أن تُذكر مزاعمه حول أمريكا الجنوبية. قال: «احضر إذا شئت، فقد تجد الأمسية مفيدة». وعندما خطوتُ إلى شارع لندن، بدت حركة المرور العادية فجأة غير حقيقية. في مكان ما وراء المحيط الأطلسي، ربما، كان هناك جدار صخري أحمر مرتفع لا تزال تتحرك فيه مخلوقات من ملايين السنين عبر الغابة. كنتُ قد أردتُ مغامرة عظيمة، والآن عرفتُ أين قد تبدأ.`
+          }
+        ],
+        vocabulary: [
+          { word: "hesitate (v)", en: "To pause before saying or doing something because of uncertainty.", ar: "يتردد" },
+          { word: "deliberately (adv)", en: "Intentionally and on purpose, not by accident.", ar: "عمدًا / عن قصد" },
+          { word: "press charges (expr)", en: "To make a formal legal accusation against someone to the police.", ar: "يرفع دعوى قضائية / يقدم شكوى" },
+          { word: "permission (n)", en: "Official approval or consent allowing someone to do something.", ar: "إذن / تصريح" },
+          { word: "hardship (n)", en: "Severe suffering, difficulty, or lack of basic comforts.", ar: "مشقة / صعوبة شديدة" },
+          { word: "cliffs (n)", en: "High, steep rock faces or walls of stone.", ar: "منحدرات / جروف صخرية" },
+          { word: "stegosaurus (n)", en: "A large prehistoric herbivorous dinosaur with bony plates along its back.", ar: "ستيجوصور (ديناصور ذو صفائح ظهرية)" },
+          { word: "plateau (n)", en: "A large, high area of flat land separated by steep cliffs.", ar: "هضبة مرتفعة" },
+          { word: "magnifying glass (n)", en: "A lens that makes small objects or details appear larger.", ar: "عدسة مكبرة" },
+          { word: "membrane (n)", en: "A thin, flexible layer of skin or tissue.", ar: "غشاء" },
+          { word: "pterodactyl (n)", en: "An extinct prehistoric flying reptile with leathery wings.", ar: "تيروداكتيل (زاحف طائر منقرض)" },
+          { word: "dismiss (v)", en: "To reject or treat something as unworthy of serious consideration.", ar: "يرفض / يستبعد" },
+          { word: "barrier (n)", en: "A natural or physical obstacle that blocks movement or access.", ar: "حاجز / عائق" },
+          { word: "isolation (n)", en: "The state of being completely separated from others.", ar: "عزلة" },
+          { word: "explosive (adj)", en: "Sudden, violent, and easily angered.", ar: "منفجر / سريع الغضب" },
+          { word: "Zoological Institute (n)", en: "A scientific society dedicated to the study of animal life.", ar: "معهد علم الحيوان" }
+        ],
+        mindmap: {
+          center: "Chapter 2: Professor Challenger's Secret",
+          branches: [
+            { title: "Truth & The Fight", color: "rose", items: ["Malone fails technical questions", "Admits he is a Gazette reporter", "Fight rolls onto steps; Malone refuses to press charges"] },
+            { title: "Earned Trust", color: "emerald", items: ["Honesty turns Challenger's rage into respect", "Invites Malone back into study", "Malone promises not to publish without permission"] },
+            { title: "Three Matching Clues", color: "blue", items: ["Maple White's sketchbook (red cliffs & stegosaurus)", "Damaged river-accident photograph of rock tower", "Real curved pterodactyl wing bone with membrane"] },
+            { title: "Theory & Next Step", color: "purple", items: ["High cliffs isolated plateau for millions of years", "Mocked in London, Challenger kept location secret", "Invites Malone to Zoological Institute lecture"] }
+          ]
+        },
+        flashcards: [
+          { q: "How does Professor Challenger discover that Malone is not a science student?", a: "Challenger asks increasingly technical questions about recent scientific evidence until Malone hesitates and admits he knows very little and is a Daily Gazette reporter." },
+          { q: "Why does Malone refuse to press charges after Challenger injures him in the fight?", a: "Malone remembers he entered the house under a false name and tricked Challenger, so he admits it was partly his fault." },
+          { q: "What effect does Malone's refusal to press charges have on Challenger?", a: "It turns Challenger's anger into respect, prompting him to invite Malone back inside and share his secret evidence." },
+          { q: "Who was Maple White, and what did Challenger find in his belongings?", a: "Maple White was a dying American explorer Challenger found in a remote Amazon village; among his belongings was a sketchbook showing red cliffs, a rock tower, and a stegosaurus." },
+          { q: "What three pieces of evidence does Challenger show Malone?", a: "1) Maple White's sketchbook, 2) a damaged photograph of the rock tower with a winged shape, and 3) a curved pterodactyl wing bone with dried membrane." },
+          { q: "What is Challenger's scientific theory about how dinosaurs survived?", a: "High cliffs formed a natural barrier that cut off the plateau from the outside world for millions of years, allowing prehistoric life to survive in isolation." }
+        ],
+        mcqs: [
+          {
+            q: "Why did Malone hesitate when Challenger asked him about 'the recent evidence'?",
+            options: [
+              "He lacked real scientific knowledge and realized his deception was exposed.",
+              "He did not want to reveal Mr. McArdle's confidential instructions.",
+              "He was trying to remember the name of the hotel in Vienna.",
+              "He had promised Tarp Henry not to discuss the paper."
+            ],
+            correct: 0,
+            explanation: "Malone had been giving vague answers until Challenger pressed him on specific evidence, exposing that Malone knew nothing about the subject."
+          },
+          {
+            q: "What causes Challenger's anger to turn into respect after their physical fight?",
+            options: [
+              "Malone takes partial blame for tricking him and refuses to press charges to the policeman.",
+              "Malone defeats Challenger in the hallway and forces him to apologize.",
+              "The policeman orders Challenger to answer all of Malone's questions.",
+              "Malone offers to pay for Challenger's torn coat immediately."
+            ],
+            correct: 0,
+            explanation: "Despite a swelling eye, Malone tells the policeman it was partly his own fault for entering under a false name and refuses to press charges."
+          },
+          {
+            q: "What strict condition does Challenger set before showing Malone his evidence?",
+            options: [
+              "Malone must promise not to publish anything without Challenger's permission.",
+              "Malone must resign from the Daily Gazette before opening the sketchbook.",
+              "Malone must pay for a new expedition to South America.",
+              "Malone must never speak to Tarp Henry again."
+            ],
+            correct: 0,
+            explanation: "Challenger insists that Malone give his word not to publish anything without permission because he fears being mocked again by the press."
+          },
+          {
+            q: "How did Challenger obtain Maple White's sketchbook?",
+            options: [
+              "He found it among the belongings of a dying American explorer in a remote Amazon village.",
+              "He bought it at an auction in London after returning from South America.",
+              "Tarp Henry sent it to him from a scientific journal in Vienna.",
+              "Maple White mailed it to Challenger's house in Kensington."
+            ],
+            correct: 0,
+            explanation: "Two years earlier in the Amazon, Challenger found a dying American named Maple White in a remote village and discovered the sketchbook among his belongings."
+          },
+          {
+            q: "Why did Challenger originally travel to find the red cliffs himself?",
+            options: [
+              "Because 'a man can draw anything,' so he needed to verify Maple White's sketches personally.",
+              "Because Mr. McArdle paid him to write a travel article for London newspapers.",
+              "Because he wanted to rescue Maple White's lost expedition team.",
+              "Because Professor Summerlee dared him to climb the rock tower."
+            ],
+            correct: 0,
+            explanation: "When Malone remarks that a man can draw anything, Challenger agrees and explains that was why he followed White's clues to find the place himself."
+          },
+          {
+            q: "Why were most of Challenger's photographs of the plateau damaged?",
+            options: [
+              "They were ruined in a river accident during his return journey.",
+              "Angry journalists tore them up during a meeting in London.",
+              "Mrs. Challenger accidentally burned them in the study.",
+              "The camera broke before he ever reached the red cliffs."
+            ],
+            correct: 0,
+            explanation: "Challenger states that he took photographs of the extraordinary creatures on the plateau, though most were damaged later in a river accident."
+          },
+          {
+            q: "Why are the sketchbook, photograph, and wing bone far more convincing together than alone?",
+            options: [
+              "Each piece independently supports the others, making forgery or error unlikely.",
+              "Each piece was signed by a different London policeman.",
+              "They were all discovered inside Challenger's own garden in Kensington.",
+              "They prove that pterodactyls still live in Europe."
+            ],
+            correct: 0,
+            explanation: "As Malone realizes, one item alone might be explained away, but a matching drawing, photograph, and real bone together are very hard to dismiss."
+          },
+          {
+            q: "According to Challenger's theory, how did prehistoric animals survive on the plateau?",
+            options: [
+              "High cliffs formed a natural barrier that kept the plateau isolated for millions of years.",
+              "Local villagers protected the dinosaurs inside underground caves.",
+              "The animals migrated from Africa across the Atlantic Ocean.",
+              "The climate on the plateau was frozen in ice until recently."
+            ],
+            correct: 0,
+            explanation: "Challenger explains that the plateau was cut off from the surrounding world by high cliffs forming a natural barrier, allowing ancient species to survive in isolation."
+          },
+          {
+            q: "Why did Challenger refuse to reveal the plateau's exact directions to other scientists in London?",
+            options: [
+              "People laughed at him and accused him of faking photographs, insulting his pride.",
+              "He had lost Maple White's sketchbook in the river accident.",
+              "He forgot where the plateau was located in South America.",
+              "The British government banned anyone from visiting the Amazon."
+            ],
+            correct: 0,
+            explanation: "When he tried to speak publicly in London, people laughed and accused him of creating false photographs; insulted, he refused to say more."
+          },
+          {
+            q: "How does Malone's attitude toward Challenger's story change by the end of Chapter 2?",
+            options: [
+              "He moves from initial scepticism to believing Challenger's sincerity and starting to believe the story.",
+              "He becomes convinced that Challenger forged the wing bone from a giant bat.",
+              "He decides the story is too boring to attend the Zoological Institute lecture.",
+              "He plans to publish an article calling Challenger a liar the next morning."
+            ],
+            correct: 0,
+            explanation: "After examining the three pieces of evidence and hearing Challenger's conviction, Malone realizes he is beginning to believe the story and knows where his adventure may begin."
+          }
+        ],
+        essays: [
+          {
+            q: "Why did Malone hesitate when Challenger asked him about 'the recent evidence'?",
+            ar: "لماذا تردد مالون عندما سأله تشالنجر عن «الأدلة الحديثة»؟",
+            a: "Malone had been giving vague answers to seem knowledgeable, so when Challenger asked for specific evidence, Malone had nothing real to say and his trick was exposed."
+          },
+          {
+            q: "Explain why Challenger became furious when he learned Malone was a journalist.",
+            ar: "اشرح لماذا غضب تشالنجر بشدة عندما علم أن مالون صحفي.",
+            a: "Challenger hated journalists because the press had mocked his claims, and he felt personally betrayed because Malone entered his home under a false name."
+          },
+          {
+            q: "Describe what happened during the struggle between Challenger and Malone.",
+            ar: "صف ما حدث أثناء الصراع بين تشالنجر ومالون.",
+            a: "Challenger advanced despite Malone's warning, and they wrestled through the hallway, crashing into a chair and rolling out the front door onto the steps."
+          },
+          {
+            q: "Why did Malone decide not to press charges against Challenger even though he was injured?",
+            ar: "لماذا قرر مالون عدم توجيه اتهامات ضد تشالنجر رغم إصابته؟",
+            a: "Malone remembered he had entered under a false name and tricked Challenger, so he felt partly responsible for starting the fight."
+          },
+          {
+            q: "Why does Challenger invite Malone back into the house after their fight?",
+            ar: "لماذا يدعو تشالنجر مالون للعودة إلى المنزل بعد شجارهما؟",
+            a: "Malone's honesty in taking partial blame and refusing to press charges impressed Challenger and turned his anger into respect."
+          },
+          {
+            q: "Explain what condition Challenger set before showing Malone the sketchbook.",
+            ar: "اشرح الشرط الذي وضعه تشالنجر قبل أن يُري مالون دفتر الرسم.",
+            a: "Challenger required Malone to promise not to publish anything about the evidence without his permission."
+          },
+          {
+            q: "Who was Maple White, and how did his sketchbook help Challenger?",
+            ar: "من كان مابل وايت، وكيف ساعد دفتر رسوماته تشالنجر؟",
+            a: "Maple White was a dying American explorer in the Amazon whose sketchbook contained drawings of the red cliffs, rock tower, and a stegosaurus, giving Challenger clues to find the plateau."
+          },
+          {
+            q: "How did Challenger use a reference book to prove Maple White's drawing was extraordinary?",
+            ar: "كيف استخدم تشالنجر كتابًا مرجعيًا لإثبات أن رسمة مابل وايت استثنائية؟",
+            a: "He compared White's drawing of a heavy-bodied, plated animal with a scientific illustration of a prehistoric stegosaurus, showing a remarkable match."
+          },
+          {
+            q: "Explain how Maple White's sketchbook, the damaged photograph, and the wing bone support Challenger's claim.",
+            ar: "اشرح كيف يدعم دفتر رسم مابل وايت والصورة التالفة وعظمة الجناح ادعاء تشالنجر.",
+            a: "The sketchbook shows a stegosaurus, the photo shows the same cliffs with a large winged shape, and the curved bone with membrane matches a pterodactyl wing."
+          },
+          {
+            q: "Why are the different pieces of evidence more convincing together than any one piece alone?",
+            ar: "لماذا تعد الأدلة المختلفة مجتمعة أكثر إقناعًا من أي دليل منفرد؟",
+            a: "Any single item could be faked or misunderstood, but three independent pieces matching the same prehistoric creatures are very hard to dismiss."
+          },
+          {
+            q: "Explain Challenger's theory about how prehistoric animals could survive on the isolated plateau.",
+            ar: "اشرح نظرية تشالنجر حول كيفية بقاء حيوانات ما قبل التاريخ على الهضبة المعزولة.",
+            a: "High cliffs cut the plateau off from the outside world for millions of years, forming a natural barrier where ancient creatures survived in isolation."
+          },
+          {
+            q: "Analyze how Challenger's difficult personality makes people doubt a story that may actually be true.",
+            ar: "حلل كيف تجعل شخصية تشالنجر الصعبة الناس يشككون في قصة قد تكون صحيحة بالفعل.",
+            a: "His explosive temper, pride, and refusal to answer calmly make him seem unstable, causing people to focus on his rudeness instead of his evidence."
+          },
+          {
+            q: "Evaluate Challenger's decision to keep the exact location of the plateau secret. Was he justified?",
+            ar: "قيّم قرار تشالنجر بإبقاء الموقع الدقيق للهضبة سرًا. هل كان مبررًا؟",
+            a: "It was understandable to protect himself from ridicule and protect the plateau, though secrecy prevented other scientists from verifying his discovery."
+          },
+          {
+            q: "Analyze the significance of the quote: 'truth does not become false because fools refuse to accept it.'",
+            ar: "حلل دلالة مقولة: «الحقيقة لا تصبح زيفًا لأن الحمقى يرفضون قبولها».",
+            a: "It reveals Challenger's absolute confidence in scientific facts over public approval or reputation."
+          },
+          {
+            q: "Analyze how Malone's attitude changes from scepticism to growing belief during Chapter 2.",
+            ar: "حلل كيف يتغير موقف مالون من الشك إلى التصديق المتزايد خلال الفصل الثاني.",
+            a: "Malone begins doubtful ('A man can draw anything'), but after examining the photo, wing bone, and isolation theory, he admits he is beginning to believe."
+          },
+          {
+            q: "What role does the magnifying glass play in changing Malone's view of the photograph?",
+            ar: "ما الدور الذي تلعبه العدسة المكبرة في تغيير نظرة مالون للصورة؟",
+            a: "Through the magnifying glass, Malone sees that the dark winged shape on the tree has an outline unlike any modern bird."
+          },
+          {
+            q: "Why was the policeman surprised by Malone's response after the fight?",
+            ar: "لماذا تفاجأ الشرطي برد فعل مالون بعد الشجار؟",
+            a: "Even though Malone had a swelling eye, he admitted partial blame and refused to file a complaint against Challenger."
+          },
+          {
+            q: "Evaluate whether Challenger's violent behavior weakens his scientific credibility.",
+            ar: "قيّم ما إذا كان سلوك تشالنجر العنيف يُضعف مصداقيته العلمية.",
+            a: "It damages his public reputation and makes critics dismiss him easily, even though his actual field research and evidence are genuine."
+          },
+          {
+            q: "Why does Challenger invite Malone to the Zoological Institute lecture the following evening?",
+            ar: "لماذا يدعو تشالنجر مالون لحضور محاضرة معهد علم الحيوان في المساء التالي؟",
+            a: "He expects his South American claims to be discussed there and wants Malone to see the scientific debate firsthand."
+          },
+          {
+            q: "How does the ending of Chapter 2 prepare the reader for the expedition?",
+            ar: "كيف يُمهّد نهاية الفصل الثاني القارئ للرحلة الاستكشافية؟",
+            a: "London traffic suddenly feels unreal to Malone as he imagines the red cliffs across the Atlantic, realizing his great adventure is about to begin."
+          }
+        ]
+      },
+      3: {
+        number: 3,
+        title: "Chapter 3: The Expedition Is Chosen",
+        subtitle: "The public debate at the Zoological Institute, volunteering for the committee, Lord John Roxton, and the blank envelope in Manaos.",
+        summaryPoints: [
+          "At the crowded Zoological Institute lecture, audience members laugh at stories of surviving prehistoric creatures, angering Challenger.",
+          "Professor Summerlee, a sharp-voiced elderly scientist, publicly challenges Challenger to provide testable proof.",
+          "Challenger challenges Summerlee to test the evidence himself and asks for younger companions to join the dangerous journey.",
+          "Edward Malone and Lord John Roxton (a famous explorer and Amazon hunter) volunteer and are chosen to form the investigating committee.",
+          "At his rooms, Lord John tests Malone's readiness and explains his past conflict with a cruel rubber-trading group led by Pedro Lopez.",
+          "Before leaving England, Malone visits Gladys and realizes true courage means acting for a worthwhile cause rather than merely to win her approval.",
+          "The team sails to Brazil and hires Zambo (a strong, loyal helper), river men Gomez and Manuel, and Indigenous boatmen.",
+          "In Manaos on July 15 at noon, they open Challenger's sealed envelope only to find a completely blank sheet of paper.",
+          "Challenger suddenly walks in, explaining he traveled secretly to Brazil to guide them himself because memory is safer than written directions.",
+          "Despite Summerlee's horror at traveling with Challenger, the four explorers unite to discover whether a lost world truly exists."
+        ],
+        paragraphs: [
+          {
+            en: `The lecture hall of the <span class="hl-idea">Zoological Institute</span> was crowded. Scientists, students, journalists, and members of the public filled every seat. <span class="hl-char">Professor Challenger</span> sat near the front, impossible to miss because of his great black beard and powerful build. At first the lecture was calm. The speaker described how life had changed over millions of years. Then he mentioned <span class="hl-idea">stories of prehistoric creatures surviving in remote regions</span>. <span class="hl-cause">There was laughter from part of the audience.</span> Challenger stood at once. "<span class="hl-exam">There is nothing amusing about evidence</span>," he said loudly.`,
+            ar: `كانت قاعة المحاضرات في معهد علم الحيوان مزدحمة؛ فقد ملأ العلماء والطلاب والصحفيون وأفراد الجمهور كل مقعد. جلس البروفيسور تشالنجر بالقرب من المقدمة، وكان من المستحيل ألا تلاحظه بسبب لحيته السوداء العظيمة وبنيته القوية. في البداية كانت المحاضرة هادئة، حيث وصف المتحدث كيف تغيرت الحياة على مدى ملايين السنين، ثم ذكر قصصًا عن مخلوقات ما قبل التاريخ التي نجت في مناطق نائية، فتعالت الضحكات من جزء من الجمهور. وقف تشالنجر على الفور وقال بصوت عالٍ: «لا يوجد شيء مثير للسخرية في الأدلة».`
+          },
+          {
+            en: `The <span class="hl-vocab">chairman</span> asked him to sit down, but the room was already excited. <span class="hl-char">Professor Summerlee</span>, a <span class="hl-char">thin, elderly scientist with a sharp face and an even sharper voice</span>, challenged him directly. "If Professor Challenger has really found living prehistoric animals," Summerlee said, "Let him tell us where they are and <span class="hl-exam">provide proof that can be tested</span>." Challenger faced him. "<span class="hl-cause">Would you be willing to test it yourself?</span>" The room became silent. Summerlee lifted his chin. "Yes." "Then I will give a properly chosen <span class="hl-vocab">committee</span> enough information to reach the place. You may examine it with your own eyes." The audience <span class="hl-vocab">exploded</span> in <span class="hl-vocab">cheers</span> and questions.`,
+            ar: `طلب منه رئيس الجلسة الجلوس، لكن القاعة كانت قد اشتعلت بالحماس بالفعل. تحدّاه البروفيسور سمرلي، وهو عالم نحيف مسن ذو وجه حاد وصوت أكثر حدة، بشكل مباشر قائلًا: «إذا كان البروفيسور تشالنجر قد وجد حقًا حيوانات حية من عصور ما قبل التاريخ، فليخبرنا أين هي وليقدم دليلًا يمكن اختباره». واجهه تشالنجر قائلًا: «هل أنت مستعد لاختباره بنفسك؟» ساد الصمت القاعة، فرفع سمرلي ذقنه وقال: «نعم». فقال تشالنجر: «إذن سأعطي لجنة مختارة بعناية معلومات كافية للوصول إلى المكان، ويمكنك فحصه بعينيك». فانفجر الجمهور بالهتافات والأسئلة.`
+          },
+          {
+            en: `Challenger raised a hand. "Professor Summerlee should not travel alone. The journey will be difficult and dangerous. He will require <span class="hl-idea">younger companions</span>. Who volunteers?" I do not remember deciding to stand. One moment I was seated; the next I was on my feet. "<span class="hl-exam">Edward Malone, Daily Gazette</span>," I called. "I volunteer." Another man stood at <span class="hl-vocab">at almost the same time</span>. He was <span class="hl-char">tall, thin, and sun-browned, with calm blue eyes</span>.`,
+            ar: `رفع تشالنجر يده قائلًا: «لا ينبغي للبروفيسور سمرلي أن يسافر بمفرده؛ فالرحلة ستكون صعبة وخطيرة، وسيحتاج إلى رفاق أصغر سنًا. من يتطوع؟» لا أتذكر أنني قررتُ الوقوف؛ ففي لحظة كنتُ جالسًا، وفي اللحظة التالية كنتُ واقفًا على قدميّ، فناديتُ: «إدوارد مالون، ديلي جازيت. أنا أتطوع». ووقف رجل آخر في الوقت نفسه تقريبًا؛ كان طويل القامة، نحيفًا، لوّحته الشمس، وله عينان زرقاوان هادئتان.`
+          },
+          {
+            en: `"<span class="hl-char">Lord John Roxton</span>," he said. "I <span class="hl-idea">know the Amazon country and have traveled there before</span>." Everyone recognized the name. Lord John was famous as an <span class="hl-char">explorer, sportsman, and hunter</span>. Challenger immediately <span class="hl-vocab">proposed</span> that <span class="hl-exam">Summerlee, Roxton, and I should form the investigating party</span>. The <span class="hl-vocab">motion</span> was accepted. In a few astonishing minutes, my future had changed completely.`,
+            ar: `قال: «اللورد جون روكستون. أعرف منطقة الأمازون وقد سافرتُ إليها من قبل». تعرّف الجميع على الاسم؛ فقد كان اللورد جون مشهورًا كمستكشف ورياضي وصياد. واقترح تشالنجر على الفور أن يشكل سمرلي وروكستون وأنا فريق التحقيق، وتم قبول الاقتراح. وفي بضع دقائق مذهلة، تغير مستقبلي تمامًا.`
+          },
+          {
+            en: `Outside the hall Lord John <span class="hl-vocab">caught up with me</span>. "So we are to be traveling <span class="hl-vocab">companions</span>, Mr Malone. Come to my rooms. We should get to know one another." His home was full of <span class="hl-idea">maps, books, equipment, and trophies</span> from earlier journeys. Yet he <span class="hl-char">spoke without showing off</span>. He wanted to know whether I could <span class="hl-exam">shoot, climb, swim, and keep calm under pressure</span>. "I can learn what I do not know," I told him. "Good answer. <span class="hl-idea">South America is not a place for a man who thinks he already knows everything.</span>"`,
+            ar: `خارج القاعة لحق بي اللورد جون قائلًا: «إذن سنكون رفاق سفر يا سيد مالون. تعال إلى غرفي، ينبغي أن نتعرف على بعضنا البعض». كان منزله مليئًا بالخرائط والكتب والمعدات والجوائز التذكارية من رحلات سابقة، ومع ذلك تحدث دون تفاخر. أراد أن يعرف ما إذا كنتُ أستطيع إطلاق النار والتسلق والسباحة والحفاظ على هدوئي تحت الضغط. فقلتُ له: «أستطيع تعلم ما لا أعرفه». فقال: «إجابة جيدة؛ فأمريكا الجنوبية ليست مكانًا لرجل يظن أنه يعرف كل شيء بالفعل».`
+          },
+          {
+            en: `Lord John told me that during one of his earlier journeys, he had become <span class="hl-vocab">involved</span> in a serious <span class="hl-vocab">dispute</span> with a <span class="hl-idea">powerful rubber-trading group led by a man named Pedro Lopez</span>. Local workers were being <span class="hl-cause">treated unfairly and forced to work under terrible conditions</span>. Lord John helped them escape from the group's control and <span class="hl-cause">brought an end to Lopez's influence in the area</span>. "<span class="hl-exam">It made me some loyal friends</span>," he said, "<span class="hl-exam">and some dangerous enemies</span>. But I know the rivers, the language used by many local <span class="hl-vocab">traders</span> and guides, and the kind of men we may need. That could <span class="hl-vocab">keep us alive</span>."`,
+            ar: `أخبرني اللورد جون أنه خلال إحدى رحلاته السابقة، تورط في نزاع خطير مع جماعة قوية لتجارة المطاط يقودها رجل يُدعى بيدرو لوبيز؛ حيث كان العمال المحليون يُعاملون بظلم ويُجبرون على العمل في ظروف مروعة. فساعدهم اللورد جون على الهروب من سيطرة الجماعة وأنهى نفوذ لوبيز في المنطقة. قال: «لقد أكسبني ذلك بعض الأصدقاء المخلصين، وبعض الأعداء الخطرين. لكنني أعرف الأنهار، واللغة التي يستخدمها العديد من التجار والمرشدين المحليين، ونوع الرجال الذين قد نحتاجهم، وهذا قد يُبقينا على قيد الحياة».`
+          },
+          {
+            en: `Over the next weeks we prepared for the <span class="hl-vocab">expedition</span>. Professor Summerlee remained <span class="hl-char">openly doubtful</span> about Challenger's claims, but he was <span class="hl-char">determined to investigate them properly</span>. I respected his honesty. He might be <span class="hl-vocab">sceptical</span>, but he was <span class="hl-exam">willing to risk a long journey to discover the truth</span>.`,
+            ar: `على مدى الأسابيع التالية استعددنا للرحلة الاستكشافية. ظل البروفيسور سمرلي متشككًا علنًا في مزاعم تشالنجر، لكنه كان مصممًا على التحقيق فيها بشكل سليم. احترمتُ صدقه؛ فرغم أنه قد يكون متشككًا، إلا أنه كان مستعدًا للمخاطرة برحلة طويلة لاكتشاف الحقيقة.`
+          },
+          {
+            en: `Before we left England, I visited Gladys. "I am going to South America," I told her. "There may be real danger." For a moment her eyes <span class="hl-vocab">brightened with interest</span>. "Then you have found your chance." I wanted to say that I was doing it for her, but I remembered her earlier words. <span class="hl-exam">A brave act done only to win approval was not true courage.</span> So I simply said, "I hope I can make good use of it."`,
+            ar: `قبل أن نغادر إنجلترا، زرتُ جلاديس وقلتُ لها: «أنا ذاهب إلى أمريكا الجنوبية، وقد يكون هناك خطر حقيقي». للحظة لمعت عيناها باهتمام وقالت: «إذن فقد وجدتَ فرصتك». أردتُ أن أقول إنني أفعل ذلك من أجلها، لكنني تذكرتُ كلماتها السابقة: العمل الشجاع الذي يُفعل لمجرد نيل الاستحسان ليس شجاعة حقيقية. لذلك قلتُ ببساطة: «آمل أن أحسن استغلالها».`
+          },
+          {
+            en: `We <span class="hl-vocab">sailed across</span> the Atlantic and reached Brazil. At <span class="hl-idea">Para</span> we <span class="hl-vocab">hired</span> several men to help us. The most important was <span class="hl-char">Zambo, a huge, cheerful man who was strong, loyal, and practical</span>. We also employed two experienced river men, <span class="hl-char">Gomez and Manuel</span>, and several <span class="hl-vocab">Indigenous</span> boatmen who knew the upper waterways far better than any European traveler. Lord John chose the team carefully. Summerlee spent much of his time studying insects and plants. I <span class="hl-vocab">kept notes for</span> the Gazette. Every day the expedition <span class="hl-vocab">felt more real</span>.`,
+            ar: `أبحرنا عبر المحيط الأطلسي ووصلنا إلى البرازيل. وفي «بارا» استأجرنا عدة رجال لمساعدتنا، وكان أهمهم زامبو، وهو رجل ضخم ومبتهج يتسم بالقوة والولاء والعملية. كما وظفنا رجلَي أنهار خبيرين هما جوميز ومانويل، وعددًا من الملاحين من السكان الأصليين الذين يعرفون المجاري المائية العليا أفضل بكثير من أي مسافر أوروبي. اختار اللورد جون الفريق بعناية، وقضى سمرلي معظم وقته في دراسة الحشرات والنباتات، بينما كنتُ أدوّن الملاحظات لصحيفة «جازيت». وفي كل يوم كانت الرحلة الاستكشافية تبدو أكثر واقعية.`
+          },
+          {
+            en: `Our written <span class="hl-vocab">instructions</span> from Challenger were to be opened at <span class="hl-idea">Manaos at exactly noon on 15 July</span>. The <span class="hl-vocab">envelope</span> remained <span class="hl-vocab">sealed</span> during the journey. At last the day arrived. We sat around a table in a <span class="hl-vocab">shaded</span> house outside Manaos. Lord John placed his watch beside the envelope. "Noon," he said, and cut it open. <span class="hl-exam">Inside was a single sheet of paper. It was blank.</span> Summerlee stared at it. "This is <span class="hl-vocab">ridiculous</span>."`,
+            ar: `كان من المقرر فتح تعليماتنا المكتوبة من تشالنجر في «ماناوس» في تمام الساعة الثانية عشرة ظهرًا يوم 15 يوليو، وظل المظروف مختومًا طوال الرحلة. وأخيرًا جاء اليوم الموعود؛ جلسنا حول طاولة في منزل مظلل خارج ماناوس، ووضع اللورد جون ساعته بجانب المظروف وقال: «الظهر»، ثم فتحه. كانت بداخله ورقة واحدة، وكانت بيضاء فارغة تمامًا. حدّق سمرلي فيها قائلًا: «هذا سخيف».`
+          },
+          {
+            en: `Before anyone could answer, a deep familiar voice came from the doorway. "<span class="hl-vocab">On the contrary</span>, Professor Summerlee. It is perfectly sensible." <span class="hl-idea">Professor Challenger walked into the room.</span> He had <span class="hl-cause">secretly traveled to Brazil and planned to guide us himself</span>. <span class="hl-exam">No written directions, he explained, could be as reliable as his own memory.</span> He had kept his decision private because <span class="hl-cause">he did not want arguments, reporters, or curious travelers following him</span>.`,
+            ar: `وقبل أن يتمكن أحد من الإجابة، جاء صوت عميق مألوف من عند المدخل قائلًا: «على العكس من ذلك يا بروفيسور سمرلي، إنه أمر منطقي تمامًا». ودخل البروفيسور تشالنجر إلى الغرفة. لقد سافر سرًا إلى البرازيل وخطط لقيادتنا بنفسه، موضحًا أنه لا توجد توجيهات مكتوبة يمكن أن تكون موثوقة مثل ذاكرته الشخصية. وكان قد أبقى قراره سرًا لأنه لم يُرد جدالات أو صحفيين أو مسافرين فضوليين يتبعونه.`
+          },
+          {
+            en: `Summerlee looked <span class="hl-vocab">horrified</span>. "You mean I must spend the whole journey with you?" "The scientific value of my <span class="hl-vocab">company</span> will more than <span class="hl-vocab">compensate</span> for any personal <span class="hl-vocab">discomfort</span>," Challenger replied. Lord John laughed. "Then our team is complete." Challenger spread a map across the table, though the final <span class="hl-vocab">destination</span> was not marked. "We leave tomorrow," he said. "From this point onwards, we are going into a country that very few outsiders have seen. Later we will go beyond even that." I looked around the table at the four of us - Challenger, Summerlee, Lord John, and myself. <span class="hl-char">We were different in age, character, and purpose.</span> Yet we now shared one question. <span class="hl-exam">Was there truly a lost world waiting beyond the Amazon?</span>`,
+            ar: `بدا سمرلي مرعوبًا وقال: «هل تقصد أنني يجب أن أقضي الرحلة بأكملها معك؟» فأجاب تشالنجر: «إن القيمة العلمية لصحبتي ستعوض بأكثر من اللازم عن أي انزعاج شخصي». ضحك اللورد جون وقال: «إذن فقد اكتمل فريقنا». بسط تشالنجر خريطة على الطاولة، رغم أن الوجهة النهائية لم تكن محددة عليها، وقال: «سنغادر غدًا؛ فمن هذه النقطة فصاعدًا سندخل بلادًا لم يرها سوى قلة قليلة من الغرباء، ولاحقًا سنذهب إلى ما هو أبعد من ذلك». نظرتُ حول الطاولة إلينا نحن الأربعة — تشالنجر، وسمرلي، واللورد جون، وأنا. كنا مختلفين في العمر والشخصية والهدف، ولكننا الآن نتشارك سؤالًا واحدًا: هل كان هناك حقًا عالم مفقود ينتظر وراء الأمازون؟`
+          }
+        ],
+        vocabulary: [
+          { word: "committee (n)", en: "A group of people chosen to investigate or decide on a specific matter.", ar: "لجنة" },
+          { word: "companion (n)", en: "A person who travels with or accompanies another.", ar: "رفيق" },
+          { word: "trophies (n)", en: "Objects kept as prizes or reminders of hunting or past achievements.", ar: "جوائز / تذكارات صيد" },
+          { word: "dispute (n)", en: "A serious argument or disagreement.", ar: "نزاع / خلاف" },
+          { word: "rubber-trading (n)", en: "The business of harvesting and selling natural rubber.", ar: "تجارة المطاط" },
+          { word: "expedition (n)", en: "An organized journey undertaken for exploration or scientific research.", ar: "رحلة استكشافية / بعثة" },
+          { word: "sceptical (adj)", en: "Doubtful and unwilling to believe something without solid proof.", ar: "متشكك" },
+          { word: "approval (n)", en: "Praise, acceptance, or a favorable opinion from someone.", ar: "موافقة / استحسان" },
+          { word: "Indigenous (adj)", en: "Native to a particular region; original inhabitants.", ar: "محلي / من السكان الأصليين" },
+          { word: "sealed (adj)", en: "Closed tightly so it cannot be opened without breaking the seal.", ar: "مختوم / مغلق بإحكام" },
+          { word: "ridiculous (adj)", en: "Absurd, foolish, and deserving mockery.", ar: "سخيف / مثير للسخرية" },
+          { word: "on the contrary (expr)", en: "Used to introduce the exact opposite of what was just said.", ar: "على العكس من ذلك" },
+          { word: "reliable (adj)", en: "Dependable and able to be trusted accurately.", ar: "موثوق / يُعتمد عليه" },
+          { word: "horrified (adj)", en: "Shocked and filled with dismay or fear.", ar: "مرعوب / مصدوم" },
+          { word: "compensate (v)", en: "To make up for something unpleasant or lost by providing a benefit.", ar: "يعوّض" },
+          { word: "destination (n)", en: "The final place to which someone is traveling.", ar: "وجهة السفر" }
+        ],
+        mindmap: {
+          center: "Chapter 3: The Expedition Is Chosen",
+          branches: [
+            { title: "Zoological Institute", color: "blue", items: ["Audience laughs at prehistoric survival stories", "Summerlee demands testable proof", "Malone & Lord John Roxton volunteer"] },
+            { title: "Lord John Roxton", color: "emerald", items: ["Famous Amazon explorer & hunter", "Fought Pedro Lopez's cruel rubber group", "Made loyal friends & dangerous enemies"] },
+            { title: "Preparation & Growth", color: "purple", items: ["Summerlee is sceptical yet honest & committed", "Malone realizes true courage isn't for approval", "Hire Zambo, Gomez, Manuel & Indigenous boatmen"] },
+            { title: "Manaos Surprise", color: "amber", items: ["Envelope opened July 15 at noon is blank", "Challenger arrives secretly to guide them", "Memory safer than written maps; 4 men unite"] }
+          ]
+        },
+        flashcards: [
+          { q: "How does Professor Summerlee challenge Challenger at the Zoological Institute?", a: "Summerlee demands that Challenger state where the living prehistoric animals are and provide scientific proof that can be tested." },
+          { q: "Who volunteers to join Professor Summerlee on the investigating committee?", a: "Edward Malone (as a journalist) and Lord John Roxton (a famous explorer, sportsman, and Amazon hunter)." },
+          { q: "What important background story does Lord John Roxton share with Malone?", a: "He fought against a cruel rubber-trading group led by Pedro Lopez to free local workers, gaining loyal friends and dangerous enemies in the Amazon." },
+          { q: "How does Malone's motivation change during his final visit to Gladys?", a: "He remembers that a brave act done only to win approval is not true courage, so he chooses not to say he is going for her." },
+          { q: "What surprise do the explorers find inside Challenger's sealed envelope in Manaos?", a: "When Lord John opens it at noon on 15 July, it contains a completely blank sheet of paper." },
+          { q: "Why did Challenger secretly travel to Brazil instead of writing directions?", a: "He believed no written directions were as reliable as his own memory, and he wanted to avoid arguments, reporters, or curious travelers following him." }
+        ],
+        mcqs: [
+          {
+            q: "What triggers Professor Challenger's outburst during the Zoological Institute lecture?",
+            options: [
+              "Part of the audience laughs at stories of prehistoric creatures surviving in remote regions.",
+              "The chairman refuses to allow Professor Challenger inside the building.",
+              "Edward Malone stands up and reads his fake letter aloud to the crowd.",
+              "Lord John Roxton accuses Challenger of stealing his Amazon maps."
+            ],
+            correct: 0,
+            explanation: "When the speaker mentions stories of surviving prehistoric creatures and part of the audience laughs, Challenger stands up angrily saying, 'There is nothing amusing about evidence.'"
+          },
+          {
+            q: "Why does Professor Summerlee agree to join the expedition despite doubting Challenger?",
+            options: [
+              "He is an honest scientist committed to testing the evidence personally to discover the truth.",
+              "He wants to write a bestselling adventure novel for the Daily Gazette.",
+              "He is close friends with Challenger and wants to defend his reputation.",
+              "He hopes to take over Pedro Lopez's rubber-trading business."
+            ],
+            correct: 0,
+            explanation: "Summerlee is sceptical, yet Malone respects his honesty because he is willing to risk a long, dangerous journey to investigate the truth scientifically."
+          },
+          {
+            q: "What qualities does Lord John Roxton value most when interviewing Malone in his rooms?",
+            options: [
+              "Willingness to learn and the ability to keep calm under pressure.",
+              "Advanced knowledge of zoology and prehistoric fossils.",
+              "Wealth to pay for the steamships across the Atlantic.",
+              "Connections with newspaper editors in London."
+            ],
+            correct: 0,
+            explanation: "Lord John asks if Malone can shoot, climb, swim, and keep calm under pressure, praising Malone's humble answer ('I can learn what I do not know')."
+          },
+          {
+            q: "What was the consequence of Lord John Roxton's earlier conflict with Pedro Lopez in South America?",
+            options: [
+              "He freed mistreated local workers, winning loyal friends as well as dangerous enemies.",
+              "He was banned from ever returning to Brazil by local traders.",
+              "He discovered Maple White's sketchbook inside Lopez's camp.",
+              "He became the wealthiest rubber trader in Manaos."
+            ],
+            correct: 0,
+            explanation: "Lord John ended Pedro Lopez's cruel control over local workers, telling Malone: 'It made me some loyal friends, and some dangerous enemies.'"
+          },
+          {
+            q: "Why does Malone stop himself from telling Gladys he is going to South America for her?",
+            options: [
+              "He remembers that a brave act done merely to win approval is not true courage.",
+              "He realizes he no longer cares about Gladys at all.",
+              "Professor Challenger forbade him from mentioning the trip to anyone.",
+              "Gladys told him she had already decided to marry someone else."
+            ],
+            correct: 0,
+            explanation: "Malone recalls Gladys's earlier lesson that true courage comes from character, not from acting just to win someone's approval."
+          },
+          {
+            q: "Who is Zambo, hired by the expedition in Para, Brazil?",
+            options: [
+              "A huge, cheerful African helper who is strong, loyal, and practical.",
+              "A sceptical scientist sent by the Zoological Institute to watch Challenger.",
+              "The former leader of the cruel rubber-trading group.",
+              "A London reporter competing with Edward Malone."
+            ],
+            correct: 0,
+            explanation: "At Para, the team hires Zambo—described as a huge, cheerful man who is strong, loyal, and practical—alongside Gomez, Manuel, and Indigenous boatmen."
+          },
+          {
+            q: "What do the explorers find when they open Challenger's sealed envelope in Manaos on 15 July?",
+            options: [
+              "A single completely blank sheet of paper.",
+              "A detailed map marking the exact caves of the plateau.",
+              "A letter canceling the expedition due to river floods.",
+              "A warning from Pedro Lopez's enemies."
+            ],
+            correct: 0,
+            explanation: "At noon on 15 July, Lord John cuts open the sealed envelope to reveal a single blank sheet of paper, making Summerlee call it 'ridiculous.'"
+          },
+          {
+            q: "Why did Challenger secretly travel to Brazil instead of putting directions in the envelope?",
+            options: [
+              "No written directions were as reliable as his memory, and he wanted to prevent outsiders from following.",
+              "He forgot to write the directions before sealing the envelope in London.",
+              "He wanted to test whether Lord John Roxton could find the plateau without help.",
+              "He had already climbed the plateau alone before the others arrived."
+            ],
+            correct: 0,
+            explanation: "Challenger explains that no written directions could be as reliable as his own memory, and secrecy prevented arguments, reporters, or curious travelers from following."
+          },
+          {
+            q: "How does Professor Summerlee react when Challenger suddenly appears in Manaos?",
+            options: [
+              "He looks horrified at having to spend the entire journey with Challenger.",
+              "He cheers loudly and embraces Challenger as his best friend.",
+              "He immediately packs his bags and returns to England.",
+              "He accuses Lord John Roxton of organizing the trick."
+            ],
+            correct: 0,
+            explanation: "Summerlee looks horrified and asks, 'You mean I must spend the whole journey with you?' to which Challenger proudly replies his scientific company will compensate for any discomfort."
+          },
+          {
+            q: "What unites the four very different men at the end of Chapter 3?",
+            options: [
+              "A shared determination to discover whether a lost world truly exists beyond the Amazon.",
+              "A desire to win a cash prize offered by the Daily Gazette.",
+              "A plan to capture Pedro Lopez and bring him back to London.",
+              "A shared background as medical doctors from Edinburgh."
+            ],
+            correct: 0,
+            explanation: "Despite differences in age, character, and purpose, Challenger, Summerlee, Lord John, and Malone unite around one question: whether a lost world truly waits beyond the Amazon."
+          }
+        ],
+        essays: [
+          {
+            q: "Why does Professor Challenger believe the evidence of prehistoric creatures should be taken seriously?",
+            ar: "لماذا يعتقد البروفيسور تشالنجر أنه ينبغي أخذ الأدلة على وجود مخلوقات ما قبل التاريخ على محمل الجد؟",
+            a: "Because he has seen living proof in remote regions and believes scientific evidence should be examined fairly, not laughed at."
+          },
+          {
+            q: "Explain why Professor Summerlee challenges Challenger during the lecture.",
+            ar: "اشرح لماذا يتحدى البروفيسور سمرلي تشالنجر أثناء المحاضرة.",
+            a: "Summerlee doubts Challenger's extraordinary claims and insists he reveal the location and provide scientific proof that can be tested."
+          },
+          {
+            q: "How does Challenger persuade Summerlee to investigate the evidence personally?",
+            ar: "كيف يقنع تشالنجر سمرلي بالتحقيق في الأدلة شخصيًا؟",
+            a: "Challenger directly challenges Summerlee in front of the audience, asking if he is willing to test the evidence with his own eyes."
+          },
+          {
+            q: "Why does Challenger think Summerlee needs younger companions for the expedition?",
+            ar: "لماذا يعتقد تشالنجر أن سمرلي يحتاج إلى رفاق أصغر سنًا في الرحلة الاستكشافية؟",
+            a: "Because Summerlee is elderly, and the journey into the remote Amazon will be physically difficult and dangerous."
+          },
+          {
+            q: "How do Malone and Lord John Roxton become members of the expedition?",
+            ar: "كيف يصبح مالون واللورد جون روكستون عضوين في البعثة؟",
+            a: "When Challenger asks for younger volunteers, Malone and Lord John stand up almost simultaneously, and Challenger selects them with Summerlee as the investigating party."
+          },
+          {
+            q: "What qualities of Lord John Roxton make him suitable for the expedition?",
+            ar: "ما الصفات التي تجعل اللورد جون روكستون مناسبًا للرحلة الاستكشافية؟",
+            a: "He is a calm, brave, experienced explorer and hunter who knows the Amazon's rivers, local languages, and survival skills."
+          },
+          {
+            q: "Explain how Roxton's past experience with Pedro Lopez could affect the expedition.",
+            ar: "اشرح كيف يمكن أن تؤثر خبرة روكستون السابقة مع بيدرو لوبيز على الرحلة الاستكشافية.",
+            a: "By freeing mistreated local workers from Lopez's cruel rubber group, Roxton gained loyal local allies—but also dangerous enemies in the region."
+          },
+          {
+            q: "Why does Lord John approve of Malone's answer during their conversation in his rooms?",
+            ar: "لماذا يستحسن اللورد جون إجابة مالون أثناء حديثهما في غرفه؟",
+            a: "Malone admits he can learn what he doesn't know, showing humility and adaptability—essential traits for surviving South America."
+          },
+          {
+            q: "Why does Malone respect Professor Summerlee even though Summerlee doubts Challenger?",
+            ar: "لماذا يحترم مالون البروفيسور سمرلي رغم أن سمرلي يشك في تشالنجر؟",
+            a: "Malone respects Summerlee's honesty and scientific integrity because he is willing to risk a hard journey just to find the truth."
+          },
+          {
+            q: "Analyze how Malone's final conversation with Gladys before leaving England shows a change in his motivation.",
+            ar: "حلل كيف تُظهر محادثة مالون الأخيرة مع جلاديس قبل مغادرة إنجلترا تغيرًا في دوافعه.",
+            a: "Instead of claiming he is going to win her love, Malone remembers that true courage comes from character, not seeking approval."
+          },
+          {
+            q: "Analyze the importance of Zambo, Gomez, Manuel, and the Indigenous boatmen to the expedition.",
+            ar: "حلل أهمية زامبو وجوميز ومانويل والملاحين الأصليين للرحلة الاستكشافية.",
+            a: "They provide physical strength, loyalty, and vital knowledge of the upper Amazon waterways that Europeans lack."
+          },
+          {
+            q: "Explain why the team keeps Challenger's envelope sealed until 15 July in Manaos.",
+            ar: "اشرح لماذا يُبقي الفريق مظروف تشالنجر مختومًا حتى 15 يوليو في ماناوس.",
+            a: "They follow Challenger's strict written instructions to open it at a specific time and place to protect the secret route."
+          },
+          {
+            q: "How does Challenger's unexpected appearance in Manaos surprise the other members?",
+            ar: "كيف فاجأ ظهور تشالنجر غير المتوقع في ماناوس بقية أعضاء البعثة؟",
+            a: "After opening the envelope to find a blank sheet of paper, Challenger walks through the doorway and announces he will guide them himself."
+          },
+          {
+            q: "Explain why Challenger sends a blank sheet of paper and travels secretly to Brazil.",
+            ar: "اشرح لماذا يرسل تشالنجر ورقة بيضاء فارغة ويسافر سرًا إلى البرازيل.",
+            a: "He believes his memory is safer than written maps and wants to prevent arguments, reporters, or curious travelers from following them."
+          },
+          {
+            q: "Evaluate Challenger's decision to hide his plan to join the expedition. Was it sensible?",
+            ar: "قيّم قرار تشالنجر بإخفاء خطته للانضمام إلى البعثة. هل كان منطقيًا؟",
+            a: "It was sensible for protecting the secret location from outsiders, though it shocked Summerlee and created personal tension."
+          },
+          {
+            q: "Analyze the contrast between Challenger and Summerlee and how it may affect the expedition.",
+            ar: "حلل التباين بين تشالنجر وسمرلي وكيف قد يؤثر على الرحلة الاستكشافية.",
+            a: "Challenger is bold and arrogant while Summerlee is cautious and sceptical; they will argue constantly, yet together they ensure rigorous scientific proof."
+          },
+          {
+            q: "How do the four main members of the expedition bring different strengths to the team?",
+            ar: "كيف يُضيف الأعضاء الأربعة الرئيسيون نقاط قوة مختلفة للفريق؟",
+            a: "Challenger brings vision and memory of the route, Summerlee brings critical scientific testing, Roxton brings survival and hunting skills, and Malone brings youth and journalistic recording."
+          },
+          {
+            q: "Evaluate Malone's decision to volunteer publicly at the lecture. Was it courageous or impulsive?",
+            ar: "قيّم قرار مالون بالتطوع علنًا في المحاضرة. هل كان شجاعًا أم متهورًا؟",
+            a: "Both: he stood up instinctively without thinking, yet his willingness to face real danger proves genuine courage and commitment."
+          },
+          {
+            q: "Why does Summerlee look horrified when Challenger joins them in Manaos?",
+            ar: "لماذا يبدو سمرلي مرعوبًا عندما ينضم إليهم تشالنجر في ماناوس؟",
+            a: "Because Summerlee dislikes Challenger's arrogant temper and dreads spending the entire expedition arguing with him."
+          },
+          {
+            q: "How does the ending of Chapter 3 build curiosity and suspense for the rest of the novel?",
+            ar: "كيف يبني نهاية الفصل الثالث الفضول والتشويق لبقية الرواية؟",
+            a: "With an unmarked map and four contrasting men heading into uncharted Amazon territory, the reader wonders what dangers and prehistoric creatures await them."
+          }
+        ]
+      }
+    };
+
+    // =========================================================================
+    // STATE MANAGEMENT & LOCALSTORAGE PERSISTENCE
+    // =========================================================================
+
+    const STORAGE_KEY = 'lost_world_edtech_state_v1';
+
+    let appState = {
+      currentView: 0, // 0 = Intro, 1 = Ch 1, 2 = Ch 2, 3 = Ch 3
+      activeTab: 'text', // 'text' | 'mindmap' | 'flashcards' | 'mcq' | 'essay'
+      theme: 'light',
+      flashcardIndex: { 1: 0, 2: 0, 3: 0 },
+      flashcardFlipped: false,
+      mcqShuffled: {}, // { ch: [ { q, options: [{text, isCorrect}], explanation } ] }
+      mcqAnswers: { 1: {}, 2: {}, 3: {} }, // { ch: { qIdx: selectedOptionIdx } }
+      // Spaced Repetition Essay State per chapter:
+      // queue: array of essay indices remaining to be mastered
+      // mastered: array of essay indices rated 'excellent'
+      // ratings: { essayIdx: 'excellent' | 'improve' | 'incorrect' }
+      // userDrafts: { essayIdx: "text" }
+      // history: array of { idx, rating, timestamp }
+      essayState: {
+        1: null,
+        2: null,
+        3: null
+      }
+    };
+
+    // Fisher-Yates Shuffle Algorithm
+    function fisherYatesShuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function initChapterMCQ(ch) {
+      const rawMcqs = CHAPTERS_DATA[ch].mcqs;
+      appState.mcqShuffled[ch] = rawMcqs.map((item) => {
+        const mappedOptions = item.options.map((optText, idx) => ({
+          text: optText,
+          isCorrect: idx === item.correct
+        }));
+        return {
+          q: item.q,
+          options: fisherYatesShuffle(mappedOptions),
+          explanation: item.explanation
+        };
+      });
+    }
+
+    function initChapterEssay(ch) {
+      const total = CHAPTERS_DATA[ch].essays.length;
+      const indices = Array.from({ length: total }, (_, i) => i);
+      appState.essayState[ch] = {
+        queue: indices,
+        mastered: [],
+        ratings: {},
+        userDrafts: {},
+        history: []
+      };
+    }
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          appState = { ...appState, ...parsed };
+        }
+      } catch (e) {
+        console.warn('Could not load saved state:', e);
+      }
+
+      // Ensure MCQs are initialized and shuffled on fresh page load if not answered yet,
+      // or always shuffle unanswered MCQs on page load per strict Fisher-Yates requirement
+      [1, 2, 3].forEach((ch) => {
+        if (!appState.mcqShuffled[ch] || Object.keys(appState.mcqAnswers[ch] || {}).length === 0) {
+          initChapterMCQ(ch);
+        }
+        if (!appState.essayState[ch] || !Array.isArray(appState.essayState[ch].queue)) {
+          initChapterEssay(ch);
+        }
+      });
+
+      applyTheme(appState.theme);
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        console.warn('Could not save state:', e);
+      }
+      updateProgressUI();
+    }
+
+    // =========================================================================
+    // THEME & SIDEBAR CONTROLS
+    // =========================================================================
+
+    function applyTheme(theme) {
+      const html = document.documentElement;
+      if (theme === 'dark') {
+        html.classList.add('dark');
+        document.getElementById('mobileThemeIcon').textContent = '☀️';
+        document.getElementById('desktopThemeIcon').textContent = '☀️';
+      } else {
+        html.classList.remove('dark');
+        document.getElementById('mobileThemeIcon').textContent = '🌙';
+        document.getElementById('desktopThemeIcon').textContent = '🌙';
+      }
+    }
+
+    function toggleTheme() {
+      appState.theme = appState.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(appState.theme);
+      saveState();
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const isClosed = sidebar.classList.contains('-translate-x-full');
+      if (isClosed) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    function resetAllProgress() {
+      if (!confirm('Are you sure you want to reset all quiz scores, flashcards, and spaced-repetition essay progress?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      appState.mcqAnswers = { 1: {}, 2: {}, 3: {} };
+      appState.flashcardIndex = { 1: 0, 2: 0, 3: 0 };
+      [1, 2, 3].forEach((ch) => {
+        initChapterMCQ(ch);
+        initChapterEssay(ch);
+      });
+      saveState();
+      renderApp();
+    }
+
+    // =========================================================================
+    // PROGRESS TRACKING
+    // =========================================================================
+
+    function getChapterProgress(ch) {
+      // Each chapter has 10 MCQs + 20 Essays = 30 total mastery items
+      const mcqAns = appState.mcqAnswers[ch] || {};
+      const mcqShuf = appState.mcqShuffled[ch] || [];
+      let correctMcqs = 0;
+      Object.keys(mcqAns).forEach((qIdx) => {
+        const chosen = mcqAns[qIdx];
+        if (mcqShuf[qIdx] && mcqShuf[qIdx].options[chosen]?.isCorrect) {
+          correctMcqs++;
+        }
+      });
+      const masteredEssays = (appState.essayState[ch]?.mastered || []).length;
+      const done = correctMcqs + masteredEssays;
+      const total = 30;
+      const pct = Math.round((done / total) * 100);
+      return { done, total, pct, correctMcqs, masteredEssays };
+    }
+
+    function updateProgressUI() {
+      let totalDone = 0;
+      let totalAll = 90;
+      [1, 2, 3].forEach((ch) => {
+        const p = getChapterProgress(ch);
+        totalDone += p.done;
+        const badge = document.getElementById(`badge-ch-${ch}`);
+        if (badge) {
+          badge.textContent = `${p.pct}%`;
+          if (p.pct === 100) {
+            badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300';
+          } else {
+            badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
+          }
+        }
+      });
+
+      const globalPct = Math.round((totalDone / totalAll) * 100);
+      const bar = document.getElementById('globalProgressBar');
+      const txt = document.getElementById('globalProgressText');
+      const sub = document.getElementById('globalProgressSub');
+      if (bar) bar.style.width = `${globalPct}%`;
+      if (txt) txt.textContent = `${globalPct}%`;
+      if (sub) sub.textContent = `${totalDone} / ${totalAll} tasks mastered across 3 chapters`;
+
+      // Highlight active sidebar button
+      [0, 1, 2, 3].forEach((id) => {
+        const btn = document.getElementById(`nav-ch-${id}`);
+        if (!btn) return;
+        if (appState.currentView === id) {
+          btn.className = 'nav-btn w-full text-left px-3.5 py-3 rounded-xl flex items-center gap-3 transition font-bold text-sm bg-royal-600 text-white shadow-md shadow-indigo-500/20';
+        } else {
+          btn.className = 'nav-btn w-full text-left px-3.5 py-3 rounded-xl flex items-center gap-3 transition font-semibold text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80';
+        }
+      });
+    }
+
+    // =========================================================================
+    // NAVIGATION & TAB SWITCHING
+    // =========================================================================
+
+    function selectChapter(chId) {
+      appState.currentView = chId;
+      appState.flashcardFlipped = false;
+      saveState();
+      renderApp();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Close sidebar on mobile
+      const sidebar = document.getElementById('sidebar');
+      if (!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
+        toggleSidebar();
+      }
+    }
+
+    function selectTab(tabName) {
+      appState.activeTab = tabName;
+      appState.flashcardFlipped = false;
+      saveState();
+      renderApp();
+    }
+
+    // =========================================================================
+    // RENDER: NOVEL INTRODUCTION
+    // =========================================================================
+
+    function renderIntro() {
+      return `
+        <div class="space-y-8">
+          <!-- Hero Banner -->
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-royal-800 via-indigo-800 to-purple-900 text-white p-7 sm:p-10 shadow-xl">
+            <div class="relative z-10 max-w-3xl">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/15 backdrop-blur-xs text-indigo-100 mb-4">
+                📚 Complete Interactive Novel Guide • Chapters 1–3
+              </span>
+              <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">The Lost World</h1>
+              <p class="text-indigo-100 text-base sm:text-lg leading-relaxed mb-6">
+                By Sir Arthur Conan Doyle (1912) — Master every paragraph, bilingual translation, high-yield vocabulary table, interactive mind map, 3D flashcards, randomized MCQs, and Smart Spaced-Repetition essay drills.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <button onclick="selectChapter(1)" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg transition">
+                  Start Chapter 1 →
+                </button>
+                <button onclick="selectChapter(2)" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-sm transition">
+                  Jump to Chapter 2
+                </button>
+                <button onclick="selectChapter(3)" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-sm transition">
+                  Jump to Chapter 3
+                </button>
+              </div>
+            </div>
+            <div class="absolute -right-10 -bottom-10 text-[180px] opacity-10 select-none pointer-events-none">🦕</div>
+          </div>
+
+          <!-- Grid: Author, Novel & Setting -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+              <div class="flex items-center gap-2.5 mb-4">
+                <span class="w-9 h-9 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg">✍️</span>
+                <h2 class="text-lg font-extrabold">The Writer: Arthur Conan Doyle</h2>
+              </div>
+              <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                ${INTRO_DATA.writer.map(p => `<li class="flex gap-2.5"><span class="text-indigo-500 font-bold">•</span><span>${p}</span></li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+                <div class="flex items-center gap-2.5 mb-4">
+                  <span class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg">🧭</span>
+                  <h2 class="text-lg font-extrabold">About The Novel</h2>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  ${INTRO_DATA.novel.map(p => `<li class="flex gap-2.5"><span class="text-emerald-500 font-bold">•</span><span>${p}</span></li>`).join('')}
+                </ul>
+              </div>
+
+              <div class="bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5">
+                <h3 class="text-sm font-extrabold text-amber-900 dark:text-amber-300 mb-1.5 flex items-center gap-2">
+                  <span>🗺️</span> The Setting (Time &amp; Place)
+                </h3>
+                <p class="text-sm text-amber-950/90 dark:text-amber-100/90 leading-relaxed">${INTRO_DATA.setting}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Characters Overview -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+            <h2 class="text-xl font-extrabold mb-1">Key Characters in the Novel</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Core figures driving the expedition and conflict in The Lost World.</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              ${INTRO_DATA.characters.map(c => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 flex flex-col justify-between">
+                  <div>
+                    <span class="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 mb-2">${c.role}</span>
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">${c.name}</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${c.traits}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // RENDER: CHAPTER HEADER & SUB-TABS
+    // =========================================================================
+
+    function renderChapterView(ch) {
+      const data = CHAPTERS_DATA[ch];
+      const prog = getChapterProgress(ch);
+
+      const tabs = [
+        { id: 'text', label: '📖 Story Text & Vocab', count: `${data.paragraphs.length} Paras` },
+        { id: 'mindmap', label: '🧠 Mind Map & Points', count: 'Visual' },
+        { id: 'flashcards', label: '🗂️ 3D Flashcards', count: `${data.flashcards.length} Cards` },
+        { id: 'mcq', label: '✅ MCQ Quiz', count: `${prog.correctMcqs}/10` },
+        { id: 'essay', label: '🎯 Smart Essays', count: `${prog.masteredEssays}/20` }
+      ];
+
+      let tabBody = '';
+      if (appState.activeTab === 'text') tabBody = renderStoryTextTab(ch);
+      else if (appState.activeTab === 'mindmap') tabBody = renderMindMapTab(ch);
+      else if (appState.activeTab === 'flashcards') tabBody = renderFlashcardsTab(ch);
+      else if (appState.activeTab === 'mcq') tabBody = renderMCQTab(ch);
+      else if (appState.activeTab === 'essay') tabBody = renderEssayTab(ch);
+
+      return `
+        <div class="space-y-6">
+          <!-- Chapter Header Card -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+              <div>
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-royal-100 text-royal-700 dark:bg-indigo-950 dark:text-indigo-300">
+                    Chapter ${ch} of 3
+                  </span>
+                  <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                    ${prog.pct}% Chapter Mastery
+                  </span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">${data.title}</h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">${data.subtitle}</p>
+              </div>
+              <div class="flex items-center gap-2 self-start sm:self-center">
+                ${ch > 1 ? `<button onclick="selectChapter(${ch - 1})" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition">← Prev</button>` : ''}
+                ${ch < 3 ? `<button onclick="selectChapter(${ch + 1})" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-royal-600 text-white hover:bg-royal-700 transition">Next Ch →</button>` : ''}
+              </div>
+            </div>
+
+            <!-- Chapter Progress Bar -->
+            <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-royal-600 to-emerald-500 transition-all duration-500" style="width: ${prog.pct}%"></div>
+            </div>
+          </div>
+
+          <!-- Navigation Tabs -->
+          <div class="flex overflow-x-auto gap-2 pb-1 no-scrollbar">
+            ${tabs.map(t => {
+              const active = appState.activeTab === t.id;
+              return `
+                <button onclick="selectTab('${t.id}')" class="shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition border ${
+                  active
+                    ? 'bg-royal-600 text-white border-royal-600 shadow-md shadow-indigo-500/20'
+                    : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-indigo-400'
+                }">
+                  <span>${t.label}</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] ${active ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}">${t.count}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Active Tab Content -->
+          <div>${tabBody}</div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // TAB 1: FULL STORY TEXT (SMART HIGHLIGHTED PARAGRAPHS + ARABIC + VOCAB TABLE)
+    // =========================================================================
+
+    function renderStoryTextTab(ch) {
+      const data = CHAPTERS_DATA[ch];
+      return `
+        <div class="space-y-8">
+          <!-- Color Legend Banner -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span class="font-extrabold text-slate-700 dark:text-slate-200">🖍️ Smart Highlighting Active:</span>
+            <div class="flex flex-wrap gap-3">
+              <span class="hl-vocab">Vocabulary</span>
+              <span class="hl-idea">Core Ideas</span>
+              <span class="hl-cause">Cause &amp; Effect</span>
+              <span class="hl-char">Character Traits</span>
+              <span class="hl-exam">Exam Focus</span>
+            </div>
+          </div>
+
+          <!-- Bilingual Paragraphs -->
+          <div class="space-y-5">
+            ${data.paragraphs.map((p, idx) => `
+              <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-7 shadow-xs hover:border-indigo-300 dark:hover:border-indigo-800 transition">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-[11px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-lg">
+                    Paragraph ${idx + 1} of ${data.paragraphs.length}
+                  </span>
+                </div>
+                <!-- English Original Text with Smart Highlights -->
+                <p class="font-serif text-base sm:text-[17px] leading-[1.95] text-slate-800 dark:text-slate-100 mb-5">
+                  ${p.en}
+                </p>
+                <!-- Direct Arabic Translation Below -->
+                <div dir="rtl" lang="ar" class="font-arabic bg-slate-50 dark:bg-slate-800/70 border-r-4 border-emerald-500 rounded-xl p-4 text-sm sm:text-base leading-[1.9] text-slate-700 dark:text-slate-200">
+                  ${p.ar}
+                </div>
+              </article>
+            `).join('')}
+          </div>
+
+          <!-- Chapter Vocabulary & Exam Expressions Table -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
+            <div class="p-6 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-royal-50 to-indigo-50/50 dark:from-slate-800 dark:to-slate-900">
+              <h2 class="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>📘</span> Chapter ${ch} High-Yield Vocabulary &amp; Expressions Table
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Essential words and exam expressions extracted directly from Chapter ${ch}.
+              </p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-100 dark:bg-slate-800/90 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700">
+                    <th class="py-3.5 px-5 font-extrabold">Word / Expression</th>
+                    <th class="py-3.5 px-5 font-extrabold">Meaning in English</th>
+                    <th class="py-3.5 px-5 font-extrabold text-right font-arabic" dir="rtl">المعنى بالعربية</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                  ${data.vocabulary.map(v => `
+                    <tr class="hover:bg-indigo-50/40 dark:hover:bg-slate-800/50 transition">
+                      <td class="py-3.5 px-5 font-bold text-royal-700 dark:text-indigo-300 whitespace-nowrap">${v.word}</td>
+                      <td class="py-3.5 px-5 text-slate-600 dark:text-slate-300">${v.en}</td>
+                      <td dir="rtl" lang="ar" class="py-3.5 px-5 font-arabic font-bold text-emerald-700 dark:text-emerald-400 text-right whitespace-nowrap">${v.ar}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // TAB 2: INTERACTIVE MIND MAP & TIMELINE POINTS
+    // =========================================================================
+
+    function renderMindMapTab(ch) {
+      const data = CHAPTERS_DATA[ch];
+      const mm = data.mindmap;
+
+      const colorMap = {
+        purple: 'border-purple-400 bg-purple-50/70 dark:bg-purple-950/30 dark:border-purple-800 text-purple-900 dark:text-purple-200',
+        blue: 'border-blue-400 bg-blue-50/70 dark:bg-blue-950/30 dark:border-blue-800 text-blue-900 dark:text-blue-200',
+        amber: 'border-amber-400 bg-amber-50/70 dark:bg-amber-950/30 dark:border-amber-800 text-amber-900 dark:text-amber-200',
+        rose: 'border-rose-400 bg-rose-50/70 dark:bg-rose-950/30 dark:border-rose-800 text-rose-900 dark:text-rose-200',
+        emerald: 'border-emerald-400 bg-emerald-50/70 dark:bg-emerald-950/30 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200'
+      };
+
+      return `
+        <div class="space-y-8">
+          <!-- Interactive Visual Mind Map -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs">
+            <h2 class="text-xl font-extrabold mb-1 flex items-center gap-2">
+              <span>🧠</span> Interactive Chapter ${ch} Concept Mind Map
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Visualizing how characters, motives, evidence, and events connect.</p>
+
+            <!-- Central Node -->
+            <div class="flex flex-col items-center">
+              <div class="px-6 py-4 rounded-2xl bg-gradient-to-r from-royal-600 to-purple-700 text-white font-extrabold text-base sm:text-lg shadow-lg text-center max-w-md">
+                ${mm.center}
+              </div>
+
+              <!-- SVG Connector Lines (Desktop) -->
+              <svg class="w-full max-w-3xl h-12 hidden md:block text-indigo-300 dark:text-indigo-700" viewBox="0 0 800 50" fill="none">
+                <path d="M400 0 V20 H100 V50" stroke="currentColor" stroke-width="2.5"/>
+                <path d="M400 0 V20 H300 V50" stroke="currentColor" stroke-width="2.5"/>
+                <path d="M400 0 V20 H500 V50" stroke="currentColor" stroke-width="2.5"/>
+                <path d="M400 0 V20 H700 V50" stroke="currentColor" stroke-width="2.5"/>
+              </svg>
+
+              <!-- 4 Branch Nodes -->
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mt-4 md:mt-0">
+                ${mm.branches.map((b, i) => `
+                  <div class="mindmap-node rounded-2xl border-2 p-4 ${colorMap[b.color] || colorMap.blue} shadow-xs">
+                    <div class="text-xs font-extrabold uppercase tracking-wider opacity-75 mb-1">Branch ${i + 1}</div>
+                    <h3 class="font-extrabold text-base mb-3">${b.title}</h3>
+                    <ul class="space-y-2 text-xs leading-relaxed">
+                      ${b.items.map(it => `<li class="flex items-start gap-1.5"><span class="font-bold">•</span><span>${it}</span></li>`).join('')}
+                    </ul>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Chronological Event Timeline -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs">
+            <h2 class="text-xl font-extrabold mb-1 flex items-center gap-2">
+              <span>⏳</span> Chronological Chapter Timeline
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Step-by-step sequence of events in exact book order.</p>
+
+            <div class="relative border-l-2 border-indigo-200 dark:border-indigo-900 ml-3.5 space-y-5">
+              ${data.summaryPoints.map((pt, idx) => `
+                <div class="relative pl-7">
+                  <span class="absolute -left-[13px] top-0.5 w-6 h-6 rounded-full bg-royal-600 text-white text-xs font-extrabold flex items-center justify-center shadow-xs">
+                    ${idx + 1}
+                  </span>
+                  <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70 text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                    ${pt}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // TAB 3: 3D INTERACTIVE FLASHCARDS
+    // =========================================================================
+
+    function renderFlashcardsTab(ch) {
+      const cards = CHAPTERS_DATA[ch].flashcards;
+      const idx = appState.flashcardIndex[ch] || 0;
+      const card = cards[idx];
+      const flipped = appState.flashcardFlipped;
+
+      return `
+        <div class="max-w-2xl mx-auto space-y-6">
+          <div class="text-center">
+            <h2 class="text-xl font-extrabold">3D Active Recall Flashcards — Chapter ${ch}</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Click the card to flip between the Question and the Answer.</p>
+          </div>
+
+          <!-- Card Counter -->
+          <div class="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 px-1">
+            <span>Card ${idx + 1} of ${cards.length}</span>
+            <span>Click card to flip ↻</span>
+          </div>
+
+          <!-- 3D Perspective Card -->
+          <div onclick="flipFlashcard()" class="perspective-1000 cursor-pointer select-none h-72 sm:h-80">
+            <div class="relative w-full h-full transition-transform duration-500 transform-style-3d ${flipped ? 'rotate-y-180' : ''}">
+              <!-- Front -->
+              <div class="absolute inset-0 backface-hidden rounded-3xl bg-gradient-to-br from-royal-600 via-indigo-700 to-purple-800 text-white p-8 flex flex-col items-center justify-center text-center shadow-xl">
+                <span class="px-3 py-1 rounded-full bg-white/15 text-xs font-bold uppercase tracking-wider mb-4">Question / Term</span>
+                <p class="text-lg sm:text-xl font-extrabold leading-relaxed">${card.q}</p>
+                <span class="mt-6 text-xs text-indigo-200">Tap to reveal answer</span>
+              </div>
+
+              <!-- Back -->
+              <div class="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-white dark:bg-slate-900 border-2 border-emerald-500 p-8 flex flex-col items-center justify-center text-center shadow-xl">
+                <span class="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4">Answer / Explanation</span>
+                <p class="text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100 leading-relaxed">${card.a}</p>
+                <span class="mt-6 text-xs text-slate-400">Tap to flip back</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="flex items-center justify-between gap-4">
+            <button onclick="prevFlashcard(${ch})" class="flex-1 py-3 px-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-bold text-sm hover:border-indigo-500 transition">
+              ← Previous
+            </button>
+            <button onclick="flipFlashcard()" class="py-3 px-6 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-royal-700 dark:text-indigo-300 font-bold text-sm hover:bg-indigo-200 transition">
+              Flip Card
+            </button>
+            <button onclick="nextFlashcard(${ch})" class="flex-1 py-3 px-4 rounded-xl bg-royal-600 text-white font-bold text-sm hover:bg-royal-700 transition shadow-md">
+              Next →
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function flipFlashcard() {
+      appState.flashcardFlipped = !appState.flashcardFlipped;
+      renderApp();
+    }
+
+    function prevFlashcard(ch) {
+      const len = CHAPTERS_DATA[ch].flashcards.length;
+      appState.flashcardIndex[ch] = ((appState.flashcardIndex[ch] || 0) - 1 + len) % len;
+      appState.flashcardFlipped = false;
+      saveState();
+      renderApp();
+    }
+
+    function nextFlashcard(ch) {
+      const len = CHAPTERS_DATA[ch].flashcards.length;
+      appState.flashcardIndex[ch] = ((appState.flashcardIndex[ch] || 0) + 1) % len;
+      appState.flashcardFlipped = false;
+      saveState();
+      renderApp();
+    }
+
+    // =========================================================================
+    // TAB 4: RANDOMIZED MULTIPLE-CHOICE QUIZ (10 PER CHAPTER, FISHER-YATES)
+    // =========================================================================
+
+    function renderMCQTab(ch) {
+      const questions = appState.mcqShuffled[ch];
+      const userAns = appState.mcqAnswers[ch] || {};
+      const answeredCount = Object.keys(userAns).length;
+      let score = 0;
+      Object.keys(userAns).forEach(idx => {
+        if (questions[idx].options[userAns[idx]]?.isCorrect) score++;
+      });
+
+      return `
+        <div class="space-y-6">
+          <!-- Score Banner -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+            <div>
+              <h2 class="text-lg font-extrabold">Chapter ${ch} Comprehension Quiz (10 Questions)</h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Options are shuffled dynamically via Fisher-Yates. Answers lock once selected.</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 text-center">
+                <span class="block text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400">Score</span>
+                <span class="text-lg font-extrabold text-royal-700 dark:text-indigo-200">${score} / 10</span>
+              </div>
+              <button onclick="retakeMCQ(${ch})" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-rose-100 hover:text-rose-700 dark:hover:bg-rose-950 dark:hover:text-rose-300 transition">
+                ↻ Retake &amp; Shuffle
+              </button>
+            </div>
+          </div>
+
+          <!-- Questions List -->
+          <div class="space-y-5">
+            ${questions.map((item, qIdx) => {
+              const chosenIdx = userAns[qIdx];
+              const isAnswered = chosenIdx !== undefined;
+              const letters = ['A', 'B', 'C', 'D'];
+
+              return `
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+                  <div class="flex items-start gap-3 mb-4">
+                    <span class="w-7 h-7 shrink-0 rounded-lg bg-royal-600 text-white text-xs font-extrabold flex items-center justify-center mt-0.5">
+                      ${qIdx + 1}
+                    </span>
+                    <h3 class="font-bold text-base text-slate-900 dark:text-white leading-snug">${item.q}</h3>
+                  </div>
+
+                  <div class="space-y-2.5">
+                    ${item.options.map((opt, oIdx) => {
+                      let btnClass = 'border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 bg-slate-50/50 dark:bg-slate-800/40';
+                      let icon = '';
+
+                      if (isAnswered) {
+                        if (opt.isCorrect) {
+                          btnClass = 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-100 font-bold animate-pop';
+                          icon = '<span class="text-emerald-600 dark:text-emerald-400 font-extrabold text-base">✓</span>';
+                        } else if (oIdx === chosenIdx && !opt.isCorrect) {
+                          btnClass = 'border-rose-500 bg-rose-50 dark:bg-rose-950/60 text-rose-900 dark:text-rose-100 font-bold';
+                          icon = '<span class="text-rose-600 dark:text-rose-400 font-extrabold text-base">✕</span>';
+                        } else {
+                          btnClass = 'border-slate-200 dark:border-slate-800 opacity-55';
+                        }
+                      }
+
+                      return `
+                        <button
+                          onclick="answerMCQ(${ch}, ${qIdx}, ${oIdx})"
+                          ${isAnswered ? 'disabled' : ''}
+                          class="w-full text-left p-3.5 rounded-xl border-2 transition flex items-center justify-between gap-3 text-sm ${btnClass} ${isAnswered ? 'cursor-default' : 'cursor-pointer'}"
+                        >
+                          <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-md bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-xs font-extrabold flex items-center justify-center shrink-0">
+                              ${letters[oIdx]}
+                            </span>
+                            <span>${opt.text}</span>
+                          </div>
+                          ${icon}
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+
+                  ${isAnswered ? `
+                    <div class="mt-4 p-3.5 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/60 text-xs text-slate-700 dark:text-slate-200 leading-relaxed">
+                      <strong class="text-royal-700 dark:text-indigo-300">Explanation:</strong> ${item.explanation}
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function answerMCQ(ch, qIdx, oIdx) {
+      if (appState.mcqAnswers[ch][qIdx] !== undefined) return;
+      appState.mcqAnswers[ch][qIdx] = oIdx;
+      saveState();
+      renderApp();
+    }
+
+    function retakeMCQ(ch) {
+      appState.mcqAnswers[ch] = {};
+      initChapterMCQ(ch);
+      saveState();
+      renderApp();
+    }
+
+    // =========================================================================
+    // TAB 5: SMART SPACED-REPETITION ESSAY SYSTEM (20 PER CHAPTER)
+    // =========================================================================
+
+    function renderEssayTab(ch) {
+      const essays = CHAPTERS_DATA[ch].essays;
+      const state = appState.essayState[ch];
+      const total = essays.length; // 20
+      const masteredCount = state.mastered.length;
+      const remainingCount = state.queue.length;
+      const masteryPct = Math.round((masteredCount / total) * 100);
+
+      // Current active question is the front of the queue
+      const currentIdx = state.queue.length > 0 ? state.queue[0] : null;
+      const currentEssay = currentIdx !== null ? essays[currentIdx] : null;
+      const prevRating = currentIdx !== null ? state.ratings[currentIdx] : null;
+      const draftText = currentIdx !== null ? (state.userDrafts[currentIdx] || '') : '';
+
+      return `
+        <div class="space-y-6">
+          <!-- Spaced Repetition Mastery Dashboard -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+              <div>
+                <h2 class="text-lg font-extrabold flex items-center gap-2">
+                  <span>🎯</span> Smart Spaced-Repetition Essay Trainer (20 Questions)
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Rate your answer after viewing the concise model answer. Unmastered questions repeat automatically until you master all 20!
+                </p>
+              </div>
+              <button onclick="resetChapterEssays(${ch})" class="self-start sm:self-center px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-rose-100 hover:text-rose-700 dark:hover:bg-rose-950 dark:hover:text-rose-300 transition">
+                ↻ Restart Deck
+              </button>
+            </div>
+
+            <!-- Stats Counters -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-center">
+                <span class="block text-[11px] font-bold text-emerald-700 dark:text-emerald-400">Mastered (Excellent)</span>
+                <span class="text-xl font-extrabold text-emerald-800 dark:text-emerald-200">${masteredCount} / ${total}</span>
+              </div>
+              <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 text-center">
+                <span class="block text-[11px] font-bold text-amber-700 dark:text-amber-400">Remaining in Queue</span>
+                <span class="text-xl font-extrabold text-amber-800 dark:text-amber-200">${remainingCount}</span>
+              </div>
+              <div class="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/60 text-center">
+                <span class="block text-[11px] font-bold text-indigo-700 dark:text-indigo-400">Chapter Mastery</span>
+                <span class="text-xl font-extrabold text-indigo-800 dark:text-indigo-200">${masteryPct}%</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-indigo-600 to-emerald-500 transition-all duration-500" style="width: ${masteryPct}%"></div>
+            </div>
+          </div>
+
+          ${currentEssay !== null ? `
+            <!-- Active Essay Card -->
+            <div class="bg-white dark:bg-slate-900 border-2 border-indigo-200 dark:border-indigo-900/70 rounded-3xl p-6 sm:p-8 shadow-md">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-royal-600 text-white">
+                    Question #${currentIdx + 1}
+                  </span>
+                  ${prevRating ? `
+                    <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${
+                      prevRating === 'incorrect'
+                        ? 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
+                        : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
+                    }">
+                      ↻ Spaced Review (${prevRating === 'incorrect' ? 'Previously Incorrect' : 'Needs Improvement'})
+                    </span>
+                  ` : `
+                    <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                      New Question
+                    </span>
+                  `}
+                </div>
+
+                <!-- Translate Question Button -->
+                <button onclick="toggleEssayTranslation()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 dark:bg-amber-950/80 dark:hover:bg-amber-900 text-amber-900 dark:text-amber-200 border border-amber-300 dark:border-amber-800 transition flex items-center gap-1.5">
+                  <span>🌐</span> Translate Question
+                </button>
+              </div>
+
+              <!-- English Question -->
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white leading-snug mb-3">
+                ${currentEssay.q}
+              </h3>
+
+              <!-- Inline Arabic Question Translation Box (Hidden until toggled) -->
+              <div id="essayTranslationBox" class="hidden mb-4 p-3.5 rounded-xl bg-amber-50/90 dark:bg-amber-950/50 border-r-4 border-amber-500 text-right font-arabic text-sm sm:text-base font-bold text-amber-950 dark:text-amber-100" dir="rtl" lang="ar">
+                ${currentEssay.ar}
+              </div>
+
+              <!-- Optional Student Answer Input -->
+              <div class="mb-4">
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">
+                  Your Practice Answer (Optional — test yourself before revealing):
+                </label>
+                <textarea
+                  id="essayUserInput"
+                  oninput="saveEssayDraft(${ch}, ${currentIdx}, this.value)"
+                  rows="3"
+                  placeholder="Write your concise English answer here..."
+                  class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 p-3.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-hidden focus:ring-2 focus:ring-royal-500 transition"
+                >${draftText}</textarea>
+              </div>
+
+              <!-- Show Model Answer Button -->
+              <button onclick="revealModelAnswer()" id="showModelBtn" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-sm shadow-sm transition">
+                👁️ Show Model Answer
+              </button>
+
+              <!-- Smooth Accordion Model Answer + Self-Evaluation -->
+              <div id="modelAnswerAccordion" class="accordion-content mt-4">
+                <div class="accordion-inner">
+                  <div class="p-5 rounded-2xl bg-emerald-50/90 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800/80 space-y-4">
+                    <div>
+                      <span class="inline-block text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-1">
+                        ✓ Concise Model Answer
+                      </span>
+                      <p class="text-sm sm:text-base font-bold text-emerald-950 dark:text-emerald-100 leading-relaxed">
+                        ${currentEssay.a}
+                      </p>
+                    </div>
+
+                    <div class="pt-3 border-t border-emerald-200 dark:border-emerald-800/60">
+                      <p class="text-xs font-extrabold text-slate-700 dark:text-slate-200 mb-2.5">
+                        Rate your answer to schedule smart repetition:
+                      </p>
+                      <div class="grid sm:grid-cols-3 gap-2.5">
+                        <button onclick="rateEssay(${ch}, 'excellent')" class="p-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs text-center shadow-xs transition">
+                          🌟 Excellent — ممتازة
+                          <span class="block text-[10px] font-normal opacity-90 mt-0.5">Mastered (Remove from queue)</span>
+                        </button>
+                        <button onclick="rateEssay(${ch}, 'improve')" class="p-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs text-center shadow-xs transition">
+                          🛠️ Needs Improvement — تحتاج تعديل
+                          <span class="block text-[10px] font-normal opacity-90 mt-0.5">Repeat after ~4 questions</span>
+                        </button>
+                        <button onclick="rateEssay(${ch}, 'incorrect')" class="p-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs text-center shadow-xs transition">
+                          ❌ Incorrect — خاطئة
+                          <span class="block text-[10px] font-normal opacity-90 mt-0.5">Repeat after 1 question</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <!-- Completion Celebration Banner -->
+            <div class="rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-8 text-center shadow-xl">
+              <div class="text-5xl mb-3">🏆</div>
+              <h3 class="text-2xl font-extrabold mb-2">Congratulations! Chapter ${ch} Fully Mastered!</h3>
+              <p class="text-emerald-100 text-sm max-w-lg mx-auto mb-6">
+                You have rated all 20 essay questions for Chapter ${ch} as <strong>Excellent</strong>. You can review all questions below or restart the deck anytime.
+              </p>
+              <button onclick="resetChapterEssays(${ch})" class="px-5 py-2.5 rounded-xl bg-white text-emerald-800 font-extrabold text-sm hover:bg-emerald-50 transition shadow-md">
+                ↻ Practice All 20 Again
+              </button>
+            </div>
+          `}
+
+          <!-- Review All 20 Questions Overview List -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+            <h3 class="text-base font-extrabold mb-1">All 20 Chapter ${ch} Essay Questions &amp; Mastery Status</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Click any question to view its model answer or jump to it in the queue.</p>
+            <div class="space-y-2.5">
+              ${essays.map((e, i) => {
+                const isMastered = state.mastered.includes(i);
+                const rating = state.ratings[i];
+                let badge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500">Pending</span>';
+                if (isMastered) badge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">🌟 Mastered</span>';
+                else if (rating === 'improve') badge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">🛠️ Reviewing</span>';
+                else if (rating === 'incorrect') badge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300">❌ Due Soon</span>';
+
+                return `
+                  <details class="group rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 p-3.5">
+                    <summary class="flex items-center justify-between gap-3 cursor-pointer list-none font-semibold text-xs sm:text-sm text-slate-800 dark:text-slate-100">
+                      <span><strong class="text-royal-600 dark:text-indigo-400 mr-1.5">Q${i + 1}.</strong> ${e.q}</span>
+                      <span class="shrink-0">${badge}</span>
+                    </summary>
+                    <div class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 space-y-2 text-xs">
+                      <p dir="rtl" lang="ar" class="font-arabic text-amber-700 dark:text-amber-300 font-bold text-right">${e.ar}</p>
+                      <p class="text-emerald-800 dark:text-emerald-300 font-bold">Model Answer: <span class="font-normal text-slate-700 dark:text-slate-200">${e.a}</span></p>
+                    </div>
+                  </details>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleEssayTranslation() {
+      const box = document.getElementById('essayTranslationBox');
+      if (box) box.classList.toggle('hidden');
+    }
+
+    function revealModelAnswer() {
+      const acc = document.getElementById('modelAnswerAccordion');
+      if (acc) acc.classList.add('open');
+    }
+
+    function saveEssayDraft(ch, idx, val) {
+      appState.essayState[ch].userDrafts[idx] = val;
+      saveState();
+    }
+
+    function rateEssay(ch, rating) {
+      const state = appState.essayState[ch];
+      if (!state || state.queue.length === 0) return;
+
+      const currentIdx = state.queue.shift(); // Remove from front
+      state.ratings[currentIdx] = rating;
+      state.history.push({ idx: currentIdx, rating, time: Date.now() });
+
+      if (rating === 'excellent') {
+        if (!state.mastered.includes(currentIdx)) {
+          state.mastered.push(currentIdx);
+        }
+      } else if (rating === 'improve') {
+        // Re-insert after ~4 other questions (index 4 or end of queue)
+        const insertPos = Math.min(4, state.queue.length);
+        state.queue.splice(insertPos, 0, currentIdx);
+      } else if (rating === 'incorrect') {
+        // Re-insert after 1 other question (index 1 or end of queue)
+        const insertPos = Math.min(1, state.queue.length);
+        state.queue.splice(insertPos, 0, currentIdx);
+      }
+
+      saveState();
+      renderApp();
+    }
+
+    function resetChapterEssays(ch) {
+      initChapterEssay(ch);
+      saveState();
+      renderApp();
+    }
+
+    // =========================================================================
+    // MAIN RENDER LOOP
+    // =========================================================================
+
+    function renderApp() {
+      const container = document.getElementById('appContent');
+      if (!container) return;
+
+      if (appState.currentView === 0) {
+        container.innerHTML = renderIntro();
+      } else {
+        container.innerHTML = renderChapterView(appState.currentView);
+      }
+      updateProgressUI();
+    }
+
+    // Initialize Application
+    loadState();
+    renderApp();
+  </script>
+</body>
+</html>
